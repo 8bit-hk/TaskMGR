@@ -1,0 +1,168 @@
+/* トップページのタスク欄 */
+.top-wrap{
+	width: 70%;
+	height: auto;
+	margin: 50px 15% 0px 15%; 
+}
+.task-wrap{
+	width: 90%;
+	height: auto;
+	margin:10px 5% 0 5%;
+
+	
+}
+.toDays-tasks{
+	width: 100%;
+	height: auto;
+	padding: 10px 0;
+	border-bottom: 1px solid #0000a0;
+
+}
+
+/* タスクのコンテンツ欄 */
+.main-content{
+	padding: 10px 50px 0 50px;
+	display: inline-block;
+	width: 75%;
+	height: auto;
+}
+
+.task{
+	width: 100%;
+	margin: 10px 0;
+	padding: 15px 0;
+
+	   background-color: #E5F0F8;
+	border-radius: 25px;
+
+	
+}
+.task:hover{
+		cursor: pointer;
+}
+.content-title{
+	font-size: 16px;
+	font-weight: bold;
+}
+.transButton{
+		width: 5%;
+}
+.updateButtonDiv{
+	text-align: right;
+}
+.updateButtonDiv .btn{
+	width:100px;
+	height: 30px;	
+}
+
+.a{
+	display: inline-block;
+	text-align: center;
+	width: 8%;
+		
+}
+
+.b{
+	display: inline-block;	
+	text-align: left;
+	width: 40%;
+	padding: 0px 10px;	
+}
+.b-2{
+	display: inline-block;	
+	text-align: center;
+	width: 40%;	
+	padding: 0px 10px;		
+}
+
+.c{
+	display: inline-block;
+	text-align: center;
+	width: 23%;	
+}
+.d{
+	display: inline-block;
+	text-align: center;
+	width: 14%;	
+}
+.d-2{
+	display: inline-block;
+	text-align: center;
+	width: 10%;
+}
+
+.e{
+	display: inline-block;
+	text-align: center;
+	width: 7%;
+	padding-right: 10px;
+}
+.e-2{
+	display: inline-block;
+	text-align: center;
+	width: 7%;
+	
+	padding-left: 10px;
+}
+
+
+
+
+
+
+
+.details {
+  color: #287E39;
+  line-height: 2;
+  border: 1px solid #B9F9B2;
+  width: 100%;;
+}
+
+.details__summary {
+    position: relative;
+    display: block;
+    background: #F3FFF3;
+    cursor: pointer;
+    margin: 0;
+    padding: 10px 40px 10px 16px;
+}
+.details__summary::-webkit-details-marker {
+      display: none;
+ }
+ 
+ .details__summary::before {
+      display: block;
+      content: "";
+      box-sizing: border-box;
+      position: absolute;
+      top: calc(50% - 6px);
+      right: 16px;
+      width: 6px;
+      height: 6px;
+      border: 6px solid transparent;
+      border-left: 6px solid #287E39;
+      transition: all 0.4s ease-out;
+      transform-origin: 3px 6px;
+      transform: rotate(90deg);
+      .details[open] & {
+        transform: rotate(-90deg);
+      }
+}
+
+.details__content {
+    overflow: hidden;
+    margin: 0;
+    padding-left: 16px;
+    padding-right: 16px;
+    > * {
+      margin: 0;
+      padding-top: 16px;
+	}
+}
+
+.details__content:last-child {
+ 	padding-bottom: 16px;
+ }
+
+  
+

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>TKT</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/common.css}" type="text/css">
+   	<link rel="stylesheet" th:href="@{/css/content.css}" type="text/css">
+</head>
+<body>
+
+	<header>
+	<br><br><br>
+	<div class="flex">
+	<form th:action="@{/logout}" method="post">
+		<button type="submit">ログアウト</button>
+	</form>
+			<a href="/admin" >アカウント管理</a>
+	</div>
+	</header>
+	<nav class="gnavi__wrap">
+		<ul class="gnavi__lists">
+			<li class="gnavi__list"><a href="/top">トップ</a></li>
+			<li class="gnavi__list">
+				<a href="/task">タスク</a>
+				<ul class="dropdown__lists">
+					<li class="dropdown__list"><a href="/myTask">マイタスク</a></li>
+				</ul>
+			</li>	
+			<li class="gnavi__list"><a href="/member">メンバ</a></li>
+			<li class="gnavi__list"><a href="/report">日報</a></li>
+			
+		</ul>
+	</nav>
+
+		<div class="top-wrap">
+			<h1 style="text-align:center">本日が期限のタスク一覧</h2>	
+			<div class="task-wrap">
+				<div class="toDays-tasks" th:each="tasks : ${taskList}">
+		    		<span class="a" th:text="${tasks.priority.name}"></span>
+		    		<span class="b" th:text="${tasks.name}"></span>
+		    		<span class="c" th:text="${#temporals.hour(tasks.dueTime)}+ 時 +${#temporals.minute(tasks.dueTime)} + 分"></span>
+		    		<span class="d" th:text="${tasks.user != null} ? ${tasks.user.name} : ' '"></span>
+		    		<span class="e" th:text="${tasks.status.name}"></span>		    		
+				</div>
+			</div>
+					</div>
+</body>
+</html>

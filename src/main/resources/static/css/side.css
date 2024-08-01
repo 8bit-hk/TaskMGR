@@ -1,0 +1,21 @@
+
+/** サイドバー関係 **/
+.side-wrap {
+    width: 20%;
+    padding: 75px 0px 0 0;
+}
+.side-wrap a{
+	text-decoration: none;
+}
+.side-lists {
+	width:100%;
+    display: block;
+	color: #287E39;
+    background: #F3FFF3;
+  	border: 1px solid #B9F9B2;
+  	line-height: 2;	
+    cursor: pointer;
+    margin: 0;
+    padding: 10px 40px 10px 16px;
+
+}

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>BMS</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/reset.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/common.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/form.css}" type="text/css">
+</head>
+<body>
+	<div class="form-wrapper">
+
+    	<br>
+	<form th:action="@{/logout}" method="post">
+		<button type="submit">ログアウト</button>
+	</form>
+	<nav class="gnavi__wrap">
+		<ul class="gnavi__lists">
+			<li class="gnavi__list"><a href="/top">トップ</a></li>
+			<li class="gnavi__list">
+				<a href="/task">タスク</a>
+				<ul class="dropdown__lists">
+					<li class="dropdown__list"><a href="/myTask">マイタスク</a></li>
+				</ul>
+			</li>	
+			<li class="gnavi__list"><a href="/member">メンバ</a></li>
+			<li class="gnavi__list"><a href="/report">日報</a></li>
+		</ul>
+	</nav>
+    </div>
+
+    
+    <div class="taskAddWrap">
+	<h2 display="inline-block" style="text-align:center">新規タスク追加</h2>    
+	    <form name="taskregistform" th:action="@{/task/registExecute}" th:object="${taskEntity}" method="post">
+		    <label>優先度</label><br>
+		    <div class="form-radio">
+		    	<label>
+			    	<input type="radio" name="priority" th:value=1>
+			    	<span class="form-radio-name">
+        	    		<span class="form-radio-text">高</span>
+        			</span>
+        		</label>
+		    	<label>
+		    		<input type="radio" name="priority" th:value="2">
+			    	<span class="form-radio-name">
+	        	    	<span class="form-radio-text">中</span>
+	        		</span>
+        		</label>
+		    	<label>
+		    		<input type="radio" name="priority" th:value="3">
+		    		<span class="form-radio-name">
+            			<span class="form-radio-text">低</span>
+        			</span>
+        		</label>
+
+		    </div>
+		    	
+		    <label>タスク名</label><br>
+		    <input type="text" name="" value="" class="form-text" th:field="*{name}"/><br>
+
+		    <label>期限</label><br>
+		    <input type="datetime-local"class="form-text" th:field="*{dueTime}"><br>
+		    
+		    
+		    <label>担当者</label><br>
+		    <div class="form-select">
+		    	<select name="userId">
+	   		    	<option th:value=0></option>
+					<option th:each="user : ${userList}" th:value="${user.id}" th:inline="text">[[${user.name}]]</option>
+				</select>
+			</div>
+			
+			<button class="form-submit-button">登録</button>
+	    </form>
+    
+    </div>
+    
+    
+</body>
+</html>

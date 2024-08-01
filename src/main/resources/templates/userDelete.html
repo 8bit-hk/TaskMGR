@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>BMS</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/login.css}" type="text/css">
+</head>
+<body>
+	<div class="form-wrapper">
+
+	    <h1>管理者専用ペエエエエエジ(ユーザ削除ページ)</h1>
+	    <a href="/top">トップ</a>	<br>
+		<a href="/admin">管理者トップ</a>	<br>
+    </div>
+    <form th:action="@{/admin/deleteExecute}" method="post">
+	    <th:block th:each="users : ${userList}">
+	   		<input type="radio" th:value="*{users.id}" th:text="*{users.name}" name="userId"><br>
+	   	</th:block>
+	   	<button>削除</button>
+    </form>
+    
+</body>
+</html>

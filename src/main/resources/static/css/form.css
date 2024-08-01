@@ -1,0 +1,191 @@
+.taskAddWrap{
+	width: 40%;
+	height: auto;
+	margin: 40px 30%;
+	padding: 20px;
+	border : 3px solid #333;	
+}
+
+.form-text {
+    height: 2.4em;
+    width: 100%;
+    padding: 0 16px;
+    border-radius: 4px;
+    border: none;
+    box-shadow: 0 0 0 1px #ccc inset;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.form-text:focus {
+    outline: 0;
+    box-shadow: 0 0 0 2px rgb(33, 150, 243) inset;
+}
+.form-radio{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.form-radio input {
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    border: 0;
+    padding: 0;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    margin: -1px;
+}
+
+.form-radio-name {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    color: #666;
+}
+
+.form-radio-name:before {
+    content: "";
+    display: inline-block;
+    width: 1.2em;
+    height: 1.2em;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    margin-right: 6px;
+    flex-shrink: 0;
+}
+
+.form-radio input:checked + .form-radio-name {
+    color: rgb(33, 150, 243);
+}
+
+.form-radio input:checked + .form-radio-name:before {
+    border: 0.35em solid rgb(33, 150, 243);
+}
+
+.form-radio input:focus-visible + .form-radio-name .form-radio-text {
+    background: linear-gradient(transparent 90%, rgba(33, 150, 243, 0.3) 90%);
+}
+
+.form-select {
+    position: relative;
+}
+
+.form-select:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    right: 12px;
+    width: 8px;
+    height: 8px;
+    border-top: 2px solid #333;
+    border-right: 2px solid #333;
+    transform: rotate(135deg);
+    pointer-events: none;
+}
+
+.form-select select {
+    height: 2.4em;
+    width: 100%;
+    padding: 0 8px;
+    border-radius: 4px;
+    border: none;
+    box-shadow: 0 0 0 1px #ccc inset;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+}
+
+.form-select select::-ms-expand {
+    display: none;
+}
+
+.form-select select:focus {
+    outline: 0;
+    box-shadow: 0 0 0 2px rgb(33, 150, 243) inset;
+}
+
+.form-submit-button {
+    display: inline-block;
+    width: 100%;
+    padding: 8px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 4px;
+    background-color: #333;
+    color: #fff;
+    font-weight: bold;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.form-submit-button:hover {
+    background-color: #000;
+}
+
+.form-submit-button:focus {
+    outline: 0;
+    background-color: #000;
+    border: 2px solid rgb(33, 150, 243);
+}
+
+
+
+.priorityBtn input{
+	display: inline-block;
+	width: 32%;
+    height: 2.4em;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.priorityBtn input:focus{
+	outline: 0;
+	box-shadow: 0 0 0 2px rgb(33, 150, 243) inset;
+}
+
+
+  /* ラジオボタンを非表示にする */
+  input[type="radio"] {
+    display: none;
+  }
+   /* ボタン風のスタイルを適用 */
+  label.radio-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #e0e0e0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  /* 選択されたラジオボタンのスタイルを変更 */
+  input[type="radio"]:checked + label.radio-button {
+    background-color: #3498db;
+    color: #fff;
+    border-color: #3498db;
+  }
+  
+  label.priority-radio-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #e0e0e0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+    input[type="radio"]:checked + label.priority-radio-button {
+    background-color: #3498db;
+    color: #fff;
+    border-color: #3498db;
+  }

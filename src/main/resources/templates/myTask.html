@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>TKT</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/common.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/content.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/side.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/modal.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/form.css}" type="text/css">
+    <script type="text/javascript" th:src="@{/js/side.js}"></script>
+    <script type="text/javascript" th:src="@{/js/myTaskIndex.js}"></script>
+    <script type="text/javascript" th:src="@{/js/modal.js}"></script>
+	<script th:inline="javascript">
+		const taskList = /*[[${taskList}]]*/"taskList";
+	</script>
+</head>
+<body>
+	<div class="form-wrapper">
+
+    	<br><br><br>
+	<form th:action="@{/logout}" method="post">
+		<button type="submit">ログアウト</button>
+	</form>
+	
+	<!-- グローバルナビゲーション -->
+	<nav class="gnavi__wrap">
+		<ul class="gnavi__lists">
+			<li class="gnavi__list"><a href="/top">トップ</a></li>
+			<li class="gnavi__list">
+				<a href="/task">タスク</a>
+				<ul class="dropdown__lists">
+					<li class="dropdown__list"><a href="/myTask">マイタスク</a></li>
+				</ul>
+			</li>	
+			<li class="gnavi__list"><a href="/member">メンバ</a></li>
+			<li class="gnavi__list"><a href="/report">日報</a></li>
+		</ul>
+	</nav>
+    
+   <div class="flex">
+	
+		<!-- サイドバー -->
+	    <nav class="side-wrap">
+			<a href="/task/regist">
+				<div class="side-lists">新規タスク追加</div>
+			</a>
+			
+			<a href="/myTask">
+				<div class="side-lists">一覧</div>
+			</a>
+				
+			<details class="details">
+			  <summary class="details__summary">タクス状態別</summary>
+			  	<div class="details__content">
+			  	<label><input class="is-progress" type="checkbox" value="1" checked=”checked” onclick="progressCheck()"><span class="label-text">未着手</span></label><br>
+				</div>
+				<div class="details__content">
+				<label><input class="is-progress" type="checkbox" value="2" checked=”checked” onclick="progressCheck()"><span class="label-text">進行中</span></label><br>
+				</div>
+				<div class="details__content">
+				<label><input class="is-progress" type="checkbox" value="3" checked=”checked” onclick="progressCheck()"><span class="label-text">完了済</span></label><br>
+			  </div>
+			</details>
+		
+			<details class="details">
+		  		<summary class="details__summary">検索</summary>
+	  			<div class="details__content">
+		        	<form action="#" th:action="@{/myTaskSearch}" th:object="${searchQuery}" method="get">
+				    	<label>優先度
+				    	<select th:field="*{priorityNum}" name="priority-search" >
+				    		<option	th:value=0 > </option>
+					    	<option	th:value=1>高</option>
+					    	<option	th:value=2>中</option>
+					    	<option	th:value=3>低</option>
+					    </select></label><br>
+			
+					    <input type="search" th:field="*{taskName}" placeholder="タスク名"><br>
+			   		    <input type="hidden" name="repname" th:value="${loginUserName}" placeholder="担当者名">
+					    
+					    <label>検索期間</label><br>
+					    
+					    <input type="datetime-local" th:field="*{from}"><br>
+					  
+					    <input type="datetime-local" th:field="*{to}"><br>
+					    
+			    	    <button>検索</button>
+		   	    	</form>
+	   	    	</div>
+		</details>
+	    </nav>
+	
+	    <!-- メインコンテンツ（タスク一覧） -->
+		<div class="main-content">
+			<h2 style="text-align:center">タスク一覧</h2>
+
+			 <div>
+				<span class="a content-title">優先度</span>
+				<span class="b-2 content-title">タスク名</span>
+				<span class="c content-title">期限</span>
+				<span class="d-2 content-title">担当</span>
+				<span class="e-2 content-title">状態</span>
+			</div>
+			
+			<div class="taskList"></div>
+
+			<div id="pagination">
+				<button id="prev">&lt;</button>
+		   		<div id="paginateButton"></div>
+			   	<button id="next">&gt;</button>
+			</div>
+		</div>
+		
+				<!-- モーダルウィンドウ -->
+		<div id="easyModal" class="modal">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1>タスク詳細</h1>
+					<span class="modalClose" onclick="modalClose()">×</span>
+				</div>
+				<div id="modal-body">
+				<form>
+			    	<div class="updateform-radio">
+			  			<label class="title">優先度</label>
+					    
+					    <div  class="modal-td">
+							<input class="modal-priority" type="radio" id="mytask-priority-radio1" value=1 name="modalpriority" disabled>
+							<label class="priority-radio-button" for="mytask-priority-radio1">高</label>
+
+							<input class="modal-priority" type="radio" id="mytask-priority-radio2" value=2 name="modalpriority"disabled>
+							<label class="priority-radio-button" for="mytask-priority-radio2">中</label>
+							
+							<input class="modal-priority" type="radio" id="mytask-priority-radio3" value=3 name="modalpriority"disabled>
+							<label class="priority-radio-button" for="mytask-priority-radio3">低</label>
+						</div>
+					</div>
+						
+					<div class="modal-item"><label class="title">タスク名</label><input type="text" class="modalText" disabled></div>
+					<div class="modal-item"><label class="title">期限</label><input type="datetime-local" class="modalText" disabled></div>
+					
+					<div class="modal-item"><label class="title">担当者名</label>
+				    	<select class="select-user" name="userId" disabled>
+			  		    	<option class="option-user" th:value=0></option>
+							<option class="option-user" th:each="user : ${userList}" th:value="${user.id}" th:inline="text">[[${user.name}]]</option>
+						</select>
+					</div>
+
+					<div class="modal-item"><label class="title">状態</label>
+						<input class="modal-status" type="radio" id="mytask-radio1" name="modalstatus" value=1 disabled>
+						<label class="radio-button" for="mytask-radio1">未着手</label>
+						
+						<input class="modal-status" type="radio" id="mytask-radio2" name="modalstatus" value=2 disabled>
+						<label class="radio-button" for="mytask-radio2">進行中</label>
+						
+						<input class="modal-status" type="radio" id="mytask-radio3" name="modalstatus" value=3 disabled	>
+						<label class="radio-button" for="mytask-radio3">完了済</label>
+					</div>
+				
+					<div id="btn-wrap">
+					    <button id="update-form" class="btn" type="button" onclick="updateForm()">編集</button>
+			    		<button id="execute-delete" class="btn" type="button" onclick="deleteData()">削除</button>
+					</div>
+				</form>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+</div>
+</body>
+</html>
