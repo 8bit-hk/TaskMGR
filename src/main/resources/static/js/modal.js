@@ -2,8 +2,23 @@
  * モーダルウィンドウ用
  */
 let modalTask;
-
+let isSelect = false;
+let count = 0;
+function selectOpen(){
+	isSelect=true;
+	const selectExcept = document.getElementsByClassName("form-wrapper");
+	
+	selectExcept[0].addEventListener('click',function(){
+		isSelect = false;
+		console.log(isSelect)
+	})
+	console.log(isSelect)
+}
+function selectClose(){
+	console.log(isSelect);
+}
 function modalOpen(t){
+	console.log(isSelect)
 	const modal = document.getElementById('easyModal');
 	const tasks = document.getElementsByClassName("task");
 	const modalText = document.getElementsByClassName("modalText")
@@ -60,7 +75,12 @@ function modalOpen(t){
 					break;					
 			}
 			
-			modal.style.display = 'block';	
+			if(!isSelect){
+				modal.style.display = 'block';					
+			}
+			else{
+				modal.style.display = 'none';	
+			}
 			modalTask = Task;
 		},false);
 		

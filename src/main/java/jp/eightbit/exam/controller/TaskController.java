@@ -101,6 +101,7 @@ public class TaskController {
 		User loginUser = userService.findLoginUser(userDetails.getUsername());
 		// ログインユーザの担当タスクのみを取得
 		List<Task> taskList = taskService.findPersonalTaskAll(loginUser.getId());
+		model.addAttribute("loginUserRole", loginUser.getRole().getId());
 		List<User> userList = userService.findAll();
 		model.addAttribute("userList", userList);
 
@@ -117,12 +118,13 @@ public class TaskController {
 	 * @return
 	 */
 	@GetMapping("/task/regist")
-	public String taskRegistPage(Model model) {
+	public String taskRegistPage(Model model,@AuthenticationPrincipal UserDetails userDetails) {
 		// プルダウンメニューを作るために優先度リストとユーザリストをmodelに渡す
-		
+		User loginUser = userService.findLoginUser(userDetails.getUsername());
 		List<TaskPriority> priorityList = taskService.getTaskPriorityAll();
+		
 		List<User> userList = userService.findAll();
-
+		model.addAttribute("loginUserRole", loginUser.getRole().getId());
 		model.addAttribute("priorityList", priorityList);
 		model.addAttribute("taskEntity", new Task());
 		model.addAttribute("userList", userList);
@@ -185,7 +187,7 @@ public class TaskController {
 	public String taskrepAssignedUpdate(@RequestParam("id") int[] taskId,@RequestParam("userId") int[] userId) {
 		taskService.assignUserToTask(taskId,userId);
 		
-		return "redirect:/task";
+		return "redirect:/taskUnassigned";
 	}
 	
 	/**

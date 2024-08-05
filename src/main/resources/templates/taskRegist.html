@@ -4,17 +4,14 @@
 <head>
     <title>BMS</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" th:href="@{/css/reset.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/css/common.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/css/form.css}" type="text/css">
 </head>
 <body>
 	<div class="form-wrapper">
 
-    	<br>
-	<form th:action="@{/logout}" method="post">
-		<button type="submit">ログアウト</button>
-	</form>
+   	<br><br><br>
+
 	<nav class="gnavi__wrap">
 		<ul class="gnavi__lists">
 			<li class="gnavi__list"><a href="/top">トップ</a></li>
@@ -25,14 +22,21 @@
 				</ul>
 			</li>	
 			<li class="gnavi__list"><a href="/member">メンバ</a></li>
-			<li class="gnavi__list"><a href="/report">日報</a></li>
+			
+			<li th:if="${loginUserRole == 2}" class="gnavi__list" ><a href="/admin">アカウント管理</a></li>
+			<li th:if="${loginUserRole == 1}" class="gnavi__list" ><a href="">管理権限なし</a></li>
+
 		</ul>
 	</nav>
+	
     </div>
+		<form class="right" th:action="@{/logout}" method="post">
+		<button type="submit">ログアウト</button>
+	</form>
 
     
     <div class="taskAddWrap">
-	<h2 display="inline-block" style="text-align:center">新規タスク追加</h2>    
+	<p class="task-regist">新規タスク追加</p>	    
 	    <form name="taskregistform" th:action="@{/task/registExecute}" th:object="${taskEntity}" method="post">
 		    <label>優先度</label><br>
 		    <div class="form-radio">

@@ -62,7 +62,7 @@ function userListView(uL,tL){
 		/**
 		 * 1ページあたりの表示数
 		 */
-		const itemsPerPage = 7;
+		const itemsPerPage = 5;
 
 		/**
 		 * ページネーションボタンをクリック時のdisabledの指定

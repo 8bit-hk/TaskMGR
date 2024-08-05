@@ -1,12 +1,15 @@
 .form-wrapper {
   max-width: 400px;
-  margin: 0 auto;
+  margin: 13% auto;
   padding: 20px;
   background-color: #fff;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+.form-wrapper a{
+	text-decoration: none;
+}
 .form-item {
   margin-bottom: 15px;
 }
@@ -20,18 +23,30 @@ label {
 input[type="text"],
 input[type="email"],
 input[type="password"] {
-  width: 100%;
+  width: 90%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 3px;
 }
 
 input[type="submit"] {
-  width: 100%;
+  width: 95%;
   padding: 10px;
   background-color: #007bff;
   color: #fff;
   border: none;
   border-radius: 3px;
   cursor: pointer;
+}
+.right{
+	text-align: right;
+}
+
+.acountRegistform-wrapper {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }

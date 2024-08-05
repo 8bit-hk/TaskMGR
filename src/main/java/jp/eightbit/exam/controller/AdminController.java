@@ -64,8 +64,10 @@ public class AdminController {
 		return "redirect:/admin";
 	}
 	
+	// 既存アカウント削除処理後に削除画面に戻る
 	@PostMapping("/admin/deleteExecute")
 	public String userDeleteExecute(@RequestParam("userId") int userId) {
+		
 		userService.userDelete(userId);
 		
 		return "redirect:/admin/delete";

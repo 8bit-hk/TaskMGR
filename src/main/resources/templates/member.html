@@ -15,9 +15,7 @@
 <body>
 	<div class="form-wrapper">
 	<br><br><br>
-	<form th:action="@{/logout}" method="post">
-		<button type="submit">ログアウト</button>
-	</form>
+
 	<nav class="gnavi__wrap">
 		<ul class="gnavi__lists">
 			<li class="gnavi__list"><a href="/top">トップ</a></li>
@@ -28,22 +26,27 @@
 				</ul>
 			</li>	
 			<li class="gnavi__list"><a href="/member">メンバ</a></li>
-			<li class="gnavi__list"><a href="/report">日報</a></li>
+		
+			<li th:if="${loginUserRole == 2}" class="gnavi__list" ><a href="/admin">アカウント管理</a></li>
+			<li th:if="${loginUserRole == 1}" class="gnavi__list" ><a href="">管理権限なし</a></li>
 		</ul>
 	</nav>
+			<form class="right" th:action="@{/logout}" method="post">
+		<button type="submit">ログアウト</button>
+	</form>
 	
 	<!-- サイドバーに検索機能を表示する（役職/名前） -->
 
 	
    
-	<h2 style="text-align:center">メンバ一覧</h2>
+	<p class="member-title">メンバ一覧</p>
 	
 	<div class="member-wrap">
 	
 		<div class="main-content">
 		 <!-- 以下メンバ一覧表示用（役職/名前/未着手/進行中/完了済タスク数を表示する） -->
      	<div class="right search">
-   		<div class="inline-block">
+   		<div class="search-block">
 	   		<form th:action="@{/memberSearch}" th:object="${searchQuery}" method="get">
 	   			<label><input class="is-job" type="checkbox" value="2" checked=”checked” onclick="jobCheck()">リーダ</label>
 	   			<label><input class="is-job" type="checkbox" value="1" checked=”checked” onclick="jobCheck()">メンバ</label>
@@ -53,11 +56,11 @@
 	   	</div>
 	</div>
 			<div class="userList content-title">
-				<span class="job">役職</span>
-				<span class="name">名前</span>
-				<span class="notStarted">未着手</span>
-				<span class="inProgress">進行中</span>
-				<span class="completed">完了済</span>
+				<span class="job-title">役職</span>
+				<span class="name-title">名前</span>
+				<span class="notStarted-title">未着手</span>
+				<span class="inProgress-title">進行中</span>
+				<span class="completed-title">完了済</span>
 			</div>
 			
 			<div class="userList"></div>

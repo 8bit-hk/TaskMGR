@@ -11,12 +11,7 @@
 
 	<header>
 	<br><br><br>
-	<div class="flex">
-	<form th:action="@{/logout}" method="post">
-		<button type="submit">ログアウト</button>
-	</form>
-			<a href="/admin" >アカウント管理</a>
-	</div>
+
 	</header>
 	<nav class="gnavi__wrap">
 		<ul class="gnavi__lists">
@@ -28,13 +23,18 @@
 				</ul>
 			</li>	
 			<li class="gnavi__list"><a href="/member">メンバ</a></li>
-			<li class="gnavi__list"><a href="/report">日報</a></li>
+			
+			<li th:if="${loginUserRole == 2}" class="gnavi__list" ><a href="/admin">アカウント管理</a></li>
+			<li th:if="${loginUserRole == 1}" class="gnavi__list" ><a href="">管理権限なし</a></li>
 			
 		</ul>
 	</nav>
+		<form class="right" th:action="@{/logout}" method="post">
+		<button type="submit">ログアウト</button>
+	</form>
 
 		<div class="top-wrap">
-			<h1 style="text-align:center">本日が期限のタスク一覧</h2>	
+			<h1 style="text-align:center">本日が期限のタスク一覧</h1>	
 			<div class="task-wrap">
 				<div class="toDays-tasks" th:each="tasks : ${taskList}">
 		    		<span class="a" th:text="${tasks.priority.name}"></span>

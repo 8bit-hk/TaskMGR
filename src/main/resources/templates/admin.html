@@ -2,17 +2,26 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <title>BMS</title>
+    <title>TKT</title>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/acount.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/css/login.css}" type="text/css">
+   	<link rel="stylesheet" th:href="@{/css/form.css}" type="text/css">
+   	
 </head>
 <body>
 	<div class="form-wrapper">
+	    <h1>アカウント管理</h1>    
+   	    <div class="right">
+			<a href="/top">トップに戻る</a>
+		</div>
+		<a href="/admin/regist">
+			<div class="acount-form">新規アカウント作成</div>	
+		</a>
+		<a href="/admin/delete">
+			<div class="acount-form">既存アカウント削除</div>
+		</a>
 
-	    <h1>アカウント管理</h1>
-		<a href="/top">トップ</a>	<br>
-		<a href="/admin/regist">新規アカウント作成</a>
-		<a href="/admin/delete">既存アカウント削除</a>
     </div>
 </body>
 </html>

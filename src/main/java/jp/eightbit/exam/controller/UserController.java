@@ -3,6 +3,8 @@ package jp.eightbit.exam.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,24 +31,27 @@ public class UserController {
 	}
 
 	@GetMapping("/member")
-	public String userIndexPage(Model model) {
+	public String userIndexPage(Model model,@AuthenticationPrincipal UserDetails userDetails) {
 		List<User> userList = userService.findAll();
 		List<Task> taskList = taskService.findAll();
+		User loginUser = userService.findLoginUser(userDetails.getUsername());
+		model.addAttribute("loginUserRole", loginUser.getRole().getId());
 		model.addAttribute("searchQuery", new MemberSearchQuery());
 		model.addAttribute("userList",userList);
 		model.addAttribute("taskList",taskList);
-		System.out.println(model);
 		return "member";
 	}
 
 	@GetMapping("/memberSearch")
-	public String searchUser(Model model, @ModelAttribute MemberSearchQuery searchQuery) {
+	public String searchUser(Model model, @ModelAttribute MemberSearchQuery searchQuery,@AuthenticationPrincipal UserDetails userDetails) {
 		List<User> userList = userService.searchUser(searchQuery);
 		List<Task> taskList = taskService.findAll();
+		User loginUser = userService.findLoginUser(userDetails.getUsername());
+		model.addAttribute("loginUserRole", loginUser.getRole().getId());
 		model.addAttribute("searchQuery", new MemberSearchQuery());
 		model.addAttribute("userList", userList);
 		model.addAttribute("taskList",taskList);
-		System.out.println(model);	
+
 		return "member";
 
 	}

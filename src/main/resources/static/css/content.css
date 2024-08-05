@@ -19,26 +19,26 @@
 
 }
 
+
+
+
 /* タスクのコンテンツ欄 */
 .main-content{
 	padding: 10px 50px 0 50px;
 	display: inline-block;
-	width: 75%;
+	width: 83%;
+	margin-top: 20px;
 	height: auto;
 }
 
 .task{
 	width: 100%;
-	margin: 10px 0;
-	padding: 15px 0;
-
-	   background-color: #E5F0F8;
+    background-color: #E5F0F8;
 	border-radius: 25px;
-
-	
+	margin: 10px 0;
 }
 .task:hover{
-		cursor: pointer;
+	cursor: pointer;
 }
 .content-title{
 	font-size: 16px;
@@ -58,56 +58,81 @@
 .a{
 	display: inline-block;
 	text-align: center;
-	width: 8%;
-		
+	width: 8%;		
+	height: 54px;
+	padding: 15px 0;
 }
-
+.a-2{
+	display: inline-block;
+	text-align: center;
+	width: 8%;
+	font-size: 22px;
+}
 .b{
 	display: inline-block;	
 	text-align: left;
-	width: 40%;
-	padding: 0px 10px;	
+	width: 40%;	
+	height: 54px;
+	padding: 15px 0;
 }
 .b-2{
 	display: inline-block;	
 	text-align: center;
 	width: 40%;	
-	padding: 0px 10px;		
+	padding: 0px 10px;
+	font-size: 22px;
 }
 
 .c{
 	display: inline-block;
 	text-align: center;
 	width: 23%;	
+	height: 54px;
+	padding: 15px 0;
+}
+.c-2{
+	display: inline-block;
+	text-align: center;
+	width: 23%;
+	font-size: 22px;
 }
 .d{
 	display: inline-block;
 	text-align: center;
 	width: 14%;	
+	height: 54px;
+	padding: 15px 0;
 }
 .d-2{
 	display: inline-block;
 	text-align: center;
 	width: 10%;
+	
+	font-size: 22px;
 }
 
 .e{
 	display: inline-block;
 	text-align: center;
 	width: 7%;
-	padding-right: 10px;
+	height: 54px;
+	padding: 15px 0;
 }
 .e-2{
 	display: inline-block;
 	text-align: center;
 	width: 7%;
-	
+	font-size: 22px;
 	padding-left: 10px;
 }
 
 
 
-
+.repAssigned{
+	width: 10%;
+	margin: 0 15px;
+	z-index: 999;
+}
 
 
 

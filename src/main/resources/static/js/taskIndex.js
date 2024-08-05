@@ -142,7 +142,7 @@ function taskListView(t){
 					if(item.user != null){
 						 repName.textContent = item.user.name;
 					 }else{
-						 repName.textContent = " ";
+						 repName.textContent = "未割振り";
 					 }
 					 repName.className = 'd';
 					 status.textContent = item.status.name;
@@ -185,7 +185,6 @@ function taskListView(t){
 
 					paginatedData.forEach((item) => {
 
-
 						const task = document.createElement("div");
 					    const priority = document.createElement("span");
 					    const taskName = document.createElement("span");
@@ -194,9 +193,10 @@ function taskListView(t){
 						const status = document.createElement("span");
 						let date = new Date(item.dueTime);
 
-						task.className = "task";
+						task.className = "task";							
 					    priority.textContent = item.priority.name;
 						priority.className = 'a';
+						
 					    taskName.textContent = item.name;
 						taskName.className = 'b';
 						dueTime.textContent = `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日 ${date.getHours()}時${date.getMinutes()}分`;
@@ -212,9 +212,13 @@ function taskListView(t){
 						 
 						 const selectUsers = document.createElement("select");
 						 selectUsers.className = 'repAssigned';
+						 selectUsers.setAttribute('onclick','selectOpen()');
+						 selectUsers.setAttribute('onchange','selectClose()');
+						 
 						const space = document.createElement("option");
 						space.textContent = " ";
 						space.value = 0;
+						
 						selectUsers.appendChild(space);
 					 	
 						userList.forEach((u) => {
@@ -222,6 +226,7 @@ function taskListView(t){
 											 							
 					 		user.value = u.id;
 					 		user.textContent = u.name;
+							
 					 		selectUsers.append(user);
 					 	})
 						
@@ -261,12 +266,12 @@ function taskListView(t){
 
 				}
 			}
-			modalOpen(t);
+			modalOpen(paginatedData);
 			transBtnClick();
 		 };
 
 		 displayData(1);
-		
+	
 		 
 		/**
 		 * ページネーション表示関数
@@ -332,6 +337,7 @@ function taskListView(t){
 
 
 	}
+	
 
 
 // タスク実行/完了ボタンが押されたときの処理
@@ -417,6 +423,7 @@ async function transBtnClickDBupdate(taskId,statusId){
  function getCsrfToken(){
  // jsからfetchでリクエストを送る場合はcsrfトークンを手動で持ってくる必要がある
 var csrfElm = document.querySelector('input[name="_csrf"]');
+console.log(csrfElm)
 var csrf_token = csrfElm.value;
 return csrf_token;
 }

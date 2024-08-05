@@ -5,14 +5,15 @@
     <title>TKT</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/login.css}" type="text/css">
+    
 </head>
 <body>
-	<div class="form-wrapper">
+	<div class="acountRegistform-wrapper">
 
 	    <h1>新規ユーザ登録ページ</h1>
-	    <a href="/top">トップ</a>
-		<a href="/admin">管理者トップ</a>	<br><br>
-		
+	    <div class="right">
+			<a href="/admin">アカウント管理トップに戻る</a>	<br><br>
+		</div>
 		<form name="userregistform" th:action="@{/admin/registExecute}" th:object="${user}" method="post">
 			<div class="form-item">
 				<label>ユーザ名

@@ -20,9 +20,7 @@
 	<div class="form-wrapper">
 
     	<br><br><br>
-	<form th:action="@{/logout}" method="post">
-		<button type="submit">ログアウト</button>
-	</form>
+
 	
 	<!-- グローバルナビゲーション -->
 	<nav class="gnavi__wrap">
@@ -35,10 +33,15 @@
 				</ul>
 			</li>	
 			<li class="gnavi__list"><a href="/member">メンバ</a></li>
-			<li class="gnavi__list"><a href="/report">日報</a></li>
+						
+			<li th:if="${loginUserRole == 2}" class="gnavi__list" ><a href="/admin">アカウント管理</a></li>
+			<li th:if="${loginUserRole == 1}" class="gnavi__list" ><a href="">管理権限なし</a></li>
+			
 		</ul>
 	</nav>
-    
+  		<form class="right" th:action="@{/logout}" method="post">
+		<button type="submit">ログアウト</button>
+	</form>
    <div class="flex">
 	
 		<!-- サイドバー -->
