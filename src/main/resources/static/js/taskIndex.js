@@ -1,19 +1,16 @@
 'use strict'
-{
-	window.onload =  function(){
-		if(taskList != null){
-			taskListView(taskList);		
-		}
+window.onload =  function(){
+	if(taskList != null){
+		taskListView(taskList);		
 	}
 }
 
 
 
-// タクス状態別チェックボックス押下時の処理
+// タスク状態別チェックボックス押下時の処理
 function progressCheck(){
-	
-	const checkboxes = document.getElementsByClassName("is-progress");
-			
+
+	const checkboxes = document.getElementsByClassName("is-progress");		
 	const tasks = taskList;
 	let tl = new Array();
 	
@@ -65,283 +62,259 @@ function progressCheck(){
 			}
 		})	
 	}else{
-		tl = tasks;
+		tl = new Array();
 	}
-		taskListView(tl);
+	taskListView(tl);
 }
 
+
 function taskListView(t){
-		/**
-		 * 要素の取得
-		 */	
-		const ul = document.getElementsByClassName("taskList");
-		const prev = document.getElementById("prev");
-		const next = document.getElementById("next");
-		const active = document.getElementsByClassName("active");
-		const loginUser = loginUserId;
+	
+	const ul = document.getElementsByClassName("taskList");
+	const prev = document.getElementById("prev");
+	const next = document.getElementById("next");
+	const active = document.getElementsByClassName("active");
+	const loginUser = loginUserId;
 
-		/**
-		 * ページネーション用のデータ配列
-		 */		
-		const　data = t;
-		/**
-		 * 1ページあたりの表示数
-		 */
-		const itemsPerPage = 10;
+		
+	// ページネーション用のデータ配列
+	const　data = t;
+	
+	// 1ページあたりの表示数
+	const itemsPerPage = 10;
 
-		/**
-		 * ページネーションボタンをクリック時のdisabledの指定
-		 */
-		const disabledButton = () => {
-			/**
-			 * 最初のページネーションのボタンがactiveの場合は「<」をdisabledに
-			 */
-			const firstPageButton = document.querySelector("#paginateButton button:first-child");
-	  		firstPageButton.classList.contains("active") ? (prev.disabled = true) : (prev.disabled = false);
-	  		/**
-	   		* 最後のページネーションのボタンがactiveの場合は「>」をdisabledに
-	   		*/
-	  		const lastPageButton = document.querySelector("#paginateButton button:last-child");
-	  		lastPageButton.classList.contains("active") ? (next.disabled = true) : (next.disabled = false);
-		};
+	// ページネーションボタンをクリック時のdisabledの指定
+	const disabledButton = () => {
+		
+		// 最初のページネーションのボタンがactiveの場合は「<」をdisabledに
+		const firstPageButton = document.querySelector("#paginateButton button:first-child");
+  		firstPageButton.classList.contains("active") ? (prev.disabled = true) : (prev.disabled = false);
 
-		/**
-		 * データ表示の関数
-		 */
-		const displayData = (page) => {
-			
-			const startData = (page - 1) * itemsPerPage;
-			const endData = startData + itemsPerPage;
-			const paginatedData = data.slice(startData, endData);
+   		// 最後のページネーションのボタンがactiveの場合は「>」をdisabledに
+  		const lastPageButton = document.querySelector("#paginateButton button:last-child");
+  		lastPageButton.classList.contains("active") ? (next.disabled = true) : (next.disabled = false);
+	};
 
-		  	ul[0].innerHTML = ""
+	// データ表示の関数
+	const displayData = (page) => {
+		
+		const startData = (page - 1) * itemsPerPage;
+		const endData = startData + itemsPerPage;
+		const paginatedData = data.slice(startData, endData);
 
-			// 未割当てページではないときの処理	
-			if(nowUrl != "/taskUnassigned"){
+	  	ul[0].innerHTML = ""
+
+		// 未割当てページではないときの処理	
+		if(nowUrl != "/taskUnassigned"){
+			paginatedData.forEach((item) => {
+	
+				const task = document.createElement("div");
+			    const priority = document.createElement("span");
+			    const taskName = document.createElement("span");
+				const dueTime = document.createElement("span");
+				const repName = document.createElement("span");
+				const status = document.createElement("span");
+				const transButton = document.createElement("button");
+				let date = new Date(item.dueTime);
+	
+				task.className = "task";
+						
+				task.value = item.id;
+			    priority.textContent = item.priority.name;
+				priority.className = 'priority';
+			    taskName.textContent = item.name;
+				taskName.className = 'taskName';
+				dueTime.textContent = `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日 ${date.getHours()}時${date.getMinutes()}分`;
+				dueTime.className = 'dueTime';
+				
+				if(item.user != null){
+					 repName.textContent = item.user.name;
+				 }else{
+					 repName.textContent = "未割振り";
+				 }
+				 repName.className = 'repName';
+				 status.textContent = item.status.name;
+				 status.className = 'status';
+				
+				 task.appendChild(priority);
+				 task.appendChild(taskName);
+				 task.appendChild(dueTime);
+				 task.appendChild(repName);
+				 task.appendChild(status);
+	
+				 if(item.user != null && item.user.id == loginUser && item.status.id == 1){
+					transButton.textContent = "実行";
+					transButton.value = item.id;
+					transButton.className = 'transButton';
+					task.appendChild(transButton);
+				}else if(item.user != null && item.user.id == loginUser && item.status.id == 2){
+					transButton.textContent = "完了";
+					transButton.value = item.id;
+					transButton.className = 'transButton';
+					task.appendChild(transButton);
+				}
+				 ul[0].appendChild(task);
+			 });
+		 }else{
+			// 担当者未割り当てタスクページ
+			if(taskList != null){
+				// 担当者未割り当てタスクページ
+				let taskIdList = new Array();
+				let userIdList = new Array();
+				
+				const updateBtnDiv = document.createElement("div");
+				const updateButton = document.createElement("button");
+
+				updateButton.textContent = "更新";
+				updateBtnDiv.className ='updateButtonDiv';
+				updateButton.className ='btn';
+								
+				updateBtnDiv.appendChild(updateButton);
+
 				paginatedData.forEach((item) => {
 
 					const task = document.createElement("div");
 				    const priority = document.createElement("span");
 				    const taskName = document.createElement("span");
 					const dueTime = document.createElement("span");
-					const repName = document.createElement("span");
 					const status = document.createElement("span");
-					const transButton = document.createElement("button");
 					let date = new Date(item.dueTime);
 
-					task.className = "task";
-					
-					task.value = item.id;
+					task.className = "task";							
 				    priority.textContent = item.priority.name;
-					priority.className = 'a';
+					priority.className = 'priority';
+					
 				    taskName.textContent = item.name;
-					taskName.className = 'b';
+					taskName.className = 'taskName';
 					dueTime.textContent = `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日 ${date.getHours()}時${date.getMinutes()}分`;
-					dueTime.className = 'c';
+					dueTime.className = 'dueTime';
+					status.textContent = item.status.name;
+					status.className = 'status';
 					
-					if(item.user != null){
-						 repName.textContent = item.user.name;
-					 }else{
-						 repName.textContent = "未割振り";
-					 }
-					 repName.className = 'd';
-					 status.textContent = item.status.name;
-					 status.className = 'e';
+					 
+					task.appendChild(priority);
+					task.appendChild(taskName);
+					task.appendChild(dueTime);
+
+						 
+					const selectUsers = document.createElement("select");
+					selectUsers.className = 'repAssigned';
+					selectUsers.setAttribute('onclick','selectOpen()');
+					 
+					const space = document.createElement("option");
+					space.textContent = " ";
+					space.value = 0;
 					
-					 task.appendChild(priority);
-					 task.appendChild(taskName);
-					 task.appendChild(dueTime);
-					 task.appendChild(repName);
-					 task.appendChild(status);
-					 		 
-					 if(item.user != null && item.user.id == loginUser && item.status.id == 1){
-							transButton.textContent = "実行";
-							transButton.value = item.id;
-							transButton.className = 'transButton';
-							task.appendChild(transButton);
-							 }else if(item.user != null && item.user.id == loginUser && item.status.id == 2){
-							transButton.textContent = "完了";
-							transButton.value = item.id;
-							transButton.className = 'transButton';
-							task.appendChild(transButton);
+					selectUsers.appendChild(space);
+
+					userList.forEach((u) => {
+						const user = document.createElement("option");
+					 							
+						user.value = u.id;
+						user.textContent = u.name;
+						
+						selectUsers.append(user);
+					})
+						
+					task.appendChild(selectUsers);
+					task.appendChild(status);
+						 
+					if(item.user != null && item.user.id == loginUser && item.status.id == 1){
+						transButton.textContent = "実行";
+						transButton.value = item.id;
+						transButton.className = 'transButton';
+						task.appendChild(transButton);
+					}else if(item.user != null && item.user.id == loginUser && item.status.id == 2){
+						transButton.textContent = "完了";
+						transButton.value = item.id;
+						transButton.className = 'transButton';
+						task.appendChild(transButton);
 					}
-									
-					 ul[0].appendChild(task);
 					 
-				 });
-
-			}else{
-				if(taskList != null){
-					// 担当者未割り当てタスクページ
-					const updateBtnDiv = document.createElement("div");
-					const updateButton = document.createElement("button");
-					let taskIdList = new Array();
-					let userIdList = new Array();
-					updateButton.textContent = "更新";
-					updateBtnDiv.className ='updateButtonDiv';
-					updateButton.className ='btn';
-									
-					updateBtnDiv.appendChild(updateButton);
-
-					paginatedData.forEach((item) => {
-
-						const task = document.createElement("div");
-					    const priority = document.createElement("span");
-					    const taskName = document.createElement("span");
-						const dueTime = document.createElement("span");
-						const repName = document.createElement("span");
-						const status = document.createElement("span");
-						let date = new Date(item.dueTime);
-
-						task.className = "task";							
-					    priority.textContent = item.priority.name;
-						priority.className = 'a';
-						
-					    taskName.textContent = item.name;
-						taskName.className = 'b';
-						dueTime.textContent = `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日 ${date.getHours()}時${date.getMinutes()}分`;
-						dueTime.className = 'c';
-						 status.textContent = item.status.name;
-						 status.className = 'e';
-						
-						 
-						 task.appendChild(priority);
-						 task.appendChild(taskName);
-						 task.appendChild(dueTime);
-
-						 
-						 const selectUsers = document.createElement("select");
-						 selectUsers.className = 'repAssigned';
-						 selectUsers.setAttribute('onclick','selectOpen()');
-						 selectUsers.setAttribute('onchange','selectClose()');
-						 
-						const space = document.createElement("option");
-						space.textContent = " ";
-						space.value = 0;
-						
-						selectUsers.appendChild(space);
-					 	
-						userList.forEach((u) => {
-							const user = document.createElement("option");
-											 							
-					 		user.value = u.id;
-					 		user.textContent = u.name;
-							
-					 		selectUsers.append(user);
-					 	})
-						
-						task.appendChild(selectUsers);
-						 
-						task.appendChild(status);
-						 
-						 
-						 
-						 if(item.user != null && item.user.id == loginUser && item.status.id == 1){
-								transButton.textContent = "実行";
-								transButton.value = item.id;
-								transButton.className = 'transButton';
-								task.appendChild(transButton);
-								 }else if(item.user != null && item.user.id == loginUser && item.status.id == 2){
-								transButton.textContent = "完了";
-								transButton.value = item.id;
-								transButton.className = 'transButton';
-								task.appendChild(transButton);
-
-							 }
-						 
-						taskIdList.push(item.id);
-						ul[0].appendChild(task);
-
-					 });
-					 ul[0].appendChild(updateBtnDiv);
-					 
-					updateButton.addEventListener('click',() => {
-						const selectUsersAll = document.getElementsByClassName("repAssigned");
-						
-						for(let obj of selectUsersAll) {
-							userIdList.push(obj.value);
-						}
-						repAssigningClick(taskIdList,userIdList);
-					});
-
-				}
-			}
-			modalOpen(paginatedData);
-			transBtnClick();
-		 };
-
-		 displayData(1);
-	
-		 
-		/**
-		 * ページネーション表示関数
-		 */
-		const displayPagination = () => {
-
-			const totalPages = Math.ceil(data.length / itemsPerPage);
-		  	const paginateButton = document.getElementById("paginateButton");
-			paginateButton.innerHTML=""
-			for (let i = 1; i <= totalPages; i++) {
-				const pageButton = document.createElement("button");
-		    	pageButton.textContent = i;
-		    	
-				pageButton.addEventListener("click", (e) => {
-		      		const allPageButtons = document.querySelectorAll("#paginateButton button");
-		      
-					allPageButtons.forEach((button) => button.classList.remove("active"));
-					e.target.classList.add("active");
-					disabledButton();
-					displayData(i);
+					taskIdList.push(item.id);
+					ul[0].appendChild(task);
 				});
-				
-		    	paginateButton.appendChild(pageButton);
+					 
+				ul[0].appendChild(updateBtnDiv);
+					 
+				updateButton.addEventListener('click',() => {
+					const selectUsersAll = document.getElementsByClassName("repAssigned");
+						
+					for(let obj of selectUsersAll) {
+						userIdList.push(obj.value);
+					}
+					repAssigningClick(taskIdList,userIdList);
+				});
+
 			}
-		};
-		displayPagination();
-
-		/**
-		 * ページ読み込み時に最初のボタンをアクティブ化
-		 */
-		const firstPageButton = document.querySelector("#paginateButton button:first-child");
-	  	firstPageButton.classList.add("active");
-	  	prev.disabled = true;
-
-		/**
-		 * 「<」をクリックした際の処理
-		 */
-		prev.addEventListener("click", () => {
-			const activeNum = parseInt(active[0].textContent);
-		  	const prevPage = activeNum > 1 ? activeNum - 1 : 1;
-		  	const prevButton = document.querySelector(`#paginateButton button:nth-child(${prevPage})`);
-		  	const allPageButtons = document.querySelectorAll("#paginateButton button");
-		  	allPageButtons.forEach((button) => button.classList.remove("active"));
-		  	prevButton.classList.add("active");
-		  	displayData(prevPage);
-		  	disabledButton();
-		});
-
-		/**
-		 * 「>」をクリックした際の処理
-		 */
-		next.addEventListener("click", () => {
-			const activeNum = parseInt(active[0].textContent);
-		  	const totalPages = Math.ceil(data.length / itemsPerPage);
-		  	const nextPage = activeNum < totalPages ? activeNum + 1 : totalPages;
-		  	const nextButton = document.querySelector(`#paginateButton button:nth-child(${nextPage})`);
-		  	const allPageButtons = document.querySelectorAll("#paginateButton button");
-		  	allPageButtons.forEach((button) => button.classList.remove("active"));
-		  	nextButton.classList.add("active");
-		  	displayData(nextPage);
-		  	disabledButton();
-		});
-
-
-	}
+		}
+		modalOpen(paginatedData);
+		transBtnClick();
+	};
 	
+	displayData(1);
+	
+	// ページネーション表示関数
+	const displayPagination = () => {
 
+		const totalPages = Math.ceil(data.length / itemsPerPage);
+	  	const paginateButton = document.getElementById("paginateButton");
+		paginateButton.innerHTML=""
+		for (let i = 1; i <= totalPages; i++) {
+			const pageButton = document.createElement("button");
+	    	pageButton.textContent = i;
+		    	
+			pageButton.addEventListener("click", (e) => {
+	      		const allPageButtons = document.querySelectorAll("#paginateButton button");
+		      
+				allPageButtons.forEach((button) => button.classList.remove("active"));
+				e.target.classList.add("active");
+				disabledButton();
+				displayData(i);
+			});
+	    	paginateButton.appendChild(pageButton);
+		}
+	};
+	displayPagination();
+
+	// ページ読み込み時に最初のボタンをアクティブ化
+	const firstPageButton = document.querySelector("#paginateButton button:first-child");
+	if(firstPageButton != null){
+		firstPageButton.classList.add("active");
+	}else{
+		next.disabled = true;
+	}
+	prev.disabled = true;
+	
+	// 「<」をクリックした際の処理
+	prev.addEventListener("click", () => {
+		const activeNum = parseInt(active[0].textContent);
+	  	const prevPage = activeNum > 1 ? activeNum - 1 : 1;
+	  	const prevButton = document.querySelector(`#paginateButton button:nth-child(${prevPage})`);
+	  	const allPageButtons = document.querySelectorAll("#paginateButton button");
+	  	allPageButtons.forEach((button) => button.classList.remove("active"));
+	  	prevButton.classList.add("active");
+	  	displayData(prevPage);
+	  	disabledButton();
+	});
+
+	// 「>」をクリックした際の処理
+	next.addEventListener("click", () => {
+		const activeNum = parseInt(active[0].textContent);
+	  	const totalPages = Math.ceil(data.length / itemsPerPage);
+	  	const nextPage = activeNum < totalPages ? activeNum + 1 : totalPages;
+	  	const nextButton = document.querySelector(`#paginateButton button:nth-child(${nextPage})`);
+	  	const allPageButtons = document.querySelectorAll("#paginateButton button");
+	  	allPageButtons.forEach((button) => button.classList.remove("active"));
+	  	nextButton.classList.add("active");
+	  	displayData(nextPage);
+	  	disabledButton();
+	});
+}
 
 // タスク実行/完了ボタンが押されたときの処理
 function transBtnClick(){
+
 	const btns = document.querySelectorAll('.transButton');
 
 	for(var i = 0; i < btns.length; i++){
@@ -354,19 +327,45 @@ function transBtnClick(){
 				statusVal = 3;
 			}
 			this.style.color = 'blue';
-			
+			isSelect=true;
 			// ここで更新したタスクをDBも更新
 			transBtnClickDBupdate(this.value,statusVal);
-
 	    },false);
 	}
 }
 
+// 更新ボタンを押されたタイミングでDBを更新するPostをなげる
+async function transBtnClickDBupdate(taskId,statusId){
+ 
+	const url = "http://localhost:8080/taskMGR/task/update";
+	const form = new FormData();
+	form.append('id', taskId);
+	form.append('statusId', statusId);
+	const params = {
+		method : "POST", 
+		headers: {
+				'X-CSRF-Token': getCsrfToken()
+		},
+		body : form
+	};
+	
+	var res = await fetch(url, params)
+
+	if (res.status == 200){
+		alert("更新しました。一覧トップに戻ります。");	
+		isSelect = false;
+		console.log(isSelect)
+	}else{
+		alert("更新処理中に問題が発生しました");
+	}
+	window.location.assign(res.url);
+
+}
 
 // 担当者が更新ボタンを押されたタイミングでDBを更新するPostをなげる
 async function repAssigningClick(taskId,userId){
  
-	const url = "http://localhost:8080/task/repAssignedUpdate";
+	const url = "http://localhost:8080/taskMGR/task/repAssignedUpdate";
 	const form = new FormData();
 	form.append('id', taskId);
 	form.append('userId', userId);
@@ -389,45 +388,9 @@ async function repAssigningClick(taskId,userId){
 
 }
 
-
-
-// 更新ボタンを押されたタイミングでDBを更新するPostをなげる
-async function transBtnClickDBupdate(taskId,statusId){
- 
-	const url = "http://localhost:8080/task/update";
-	const form = new FormData();
-	form.append('id', taskId);
-	form.append('statusId', statusId);
-	const params = {
-		method : "POST", 
-		headers: {
-				'X-CSRF-Token': getCsrfToken()
-		},
-		body : form
-	};
-	
-	var res = await fetch(url, params)
-
-	if (res.status == 200){
-		alert("更新しました。一覧トップに戻ります。");	
-	}else{
-		alert("更新処理中に問題が発生しました");
-	}
-	window.location.assign(res.url);
-
+function getCsrfToken(){
+	// jsからfetchでリクエストを送る場合はcsrfトークンを手動で持ってくる必要がある
+	var csrfElm = document.querySelector('input[name="_csrf"]');
+	var csrf_token = csrfElm.value;
+	return csrf_token;
 }
-
-
-
-
- function getCsrfToken(){
- // jsからfetchでリクエストを送る場合はcsrfトークンを手動で持ってくる必要がある
-var csrfElm = document.querySelector('input[name="_csrf"]');
-console.log(csrfElm)
-var csrf_token = csrfElm.value;
-return csrf_token;
-}
-
-
-
-		

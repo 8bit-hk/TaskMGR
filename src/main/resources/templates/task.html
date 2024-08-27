@@ -2,13 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <title>TKT</title>
+    <title>全体タスク</title>
     <meta charset="UTF-8">
 	 <link rel="stylesheet" th:href="@{/css/common.css}" type="text/css">
      <link rel="stylesheet" th:href="@{/css/content.css}" type="text/css">
      <link rel="stylesheet" th:href="@{/css/side.css}" type="text/css">
+	 <link rel="stylesheet" th:href="@{/css/paging.css}" type="text/css">
      <link rel="stylesheet" th:href="@{/css/modal.css}" type="text/css">
-     <link rel="stylesheet" th:href="@{/css/form.css}" type="text/css">
+     
      <script type="text/javascript" th:src="@{/js/side.js}"></script>
      <script type="text/javascript" th:src="@{/js/modal.js}"></script>
      <script type="text/javascript" th:src="@{/js/taskIndex.js}"></script>
@@ -20,58 +21,50 @@
 	</script>
 </head>
 <body>
-	<div class="form-wrapper">
-
-   	<br><br><br>
-
-
+	<header>
+		<form th:action="@{/logout}" method="post">
+			<button type="submit">ログアウト</button>
+		</form>
+		<hr>
+		<h1 style="text-align:center">全体タスク一覧</h1>
+	</header>
+<div class="form-wrapper">
 	<!-- グローバルナビゲーション -->
 	<nav class="gnavi__wrap">
 		<ul class="gnavi__lists">
-			<li class="gnavi__list"><a href="/top">トップ</a></li>
-			<li class="gnavi__list">
-				<a href="/task">タスク</a>
-				<ul class="dropdown__lists">
-					<li class="dropdown__list"><a href="/myTask">マイタスク</a></li>
-				</ul>
-			</li>	
-			<li class="gnavi__list"><a href="/member">メンバ</a></li>
-			<li th:if="${loginUserRole == 2}" class="gnavi__list" ><a href="/admin">アカウント管理</a></li>
-			<li th:if="${loginUserRole == 1}" class="gnavi__list" ><a href="">管理権限なし</a></li>
+			<li class="gnavi__list"><a th:href="@{/top}">トップ</a></li>
+			<li class="gnavi__list"><a th:href="@{/task}">タスク</a></li>	
+			<li class="gnavi__list"><a th:href="@{/member}">メンバ</a></li>
+			<li class="gnavi__list"><a th:href="@{/myPage}">マイページ</a></li>
 		</ul>
 	</nav>
-	<form class="right" th:action="@{/logout}" method="post">
-		<button type="submit">ログアウト</button>
-	</form>
-    
 
-    
     <div class="flex">
 	
 		<!-- サイドバー -->
 	    <nav class="side-wrap">
-			<a href="/task/regist">
+			<a th:href="@{/task/regist}">
 				<div class="side-lists">新規タスク追加</div>
 			</a>
 			
-			<a href="/task">
-				<div class="side-lists">一覧</div>
+			<a th:href="@{/myTask}">
+				<div class="side-lists">マイタスク</div>
 			</a>
 				
 			<details class="details">
 			  <summary class="details__summary">タクス状態別</summary>
 			  	<div class="details__content">
-			  	<label><input class="is-progress" type="checkbox" value="1" checked=”checked” onclick="progressCheck()"><span class="label-text">未着手</span></label><br>
+					<label><input class="is-progress" type="checkbox" value="1" checked=”checked” onclick="progressCheck()"><span class="label-text">未着手</span></label><br>
 				</div>
 				<div class="details__content">
-				<label><input class="is-progress" type="checkbox" value="2" checked=”checked” onclick="progressCheck()"><span class="label-text">進行中</span></label><br>
+					<label><input class="is-progress" type="checkbox" value="2" checked=”checked” onclick="progressCheck()"><span class="label-text">進行中</span></label><br>
 				</div>
 				<div class="details__content">
-				<label><input class="is-progress" type="checkbox" value="3" checked=”checked” onclick="progressCheck()"><span class="label-text">完了済</span></label><br>
+					<label><input class="is-progress" type="checkbox" value="3" checked=”checked” onclick="progressCheck()"><span class="label-text">完了済</span></label><br>
 			  </div>
 			</details>
 			
-			<a href="/taskUnassigned">
+			<a th:href="@{/taskUnassigned}">
 				<div class="side-lists">担当未割振りタスク</div>
 			</a>	
 			<th:block th:if="${url != '/taskUnassigned'}">
@@ -79,24 +72,44 @@
 		  		<summary class="details__summary">検索</summary>
 	  			<div class="details__content">
 		        	<form action="#" th:action="@{/taskSearch}" th:object="${searchQuery}" method="get">
-				    	<label>優先度
-				    	<select th:field="*{priorityNum}" name="priority-search" >
-				    		<option	th:value=0 > </option>
-					    	<option	th:value=1>高</option>
-					    	<option	th:value=2>中</option>
-					    	<option	th:value=3>低</option>
-					    </select></label><br>
-			
-					    <input type="search" th:field="*{taskName}" placeholder="タスク名"><br>
-			   		    <input type="search" th:field="*{repName}" placeholder="担当者名"><br>
+				    	
+				    	<div class="sidesearch-form">
+					    	<label>優先度
+					    		<select th:field="*{priorityNum}" name="priority-search" >
+						    		<option	th:value=0 > </option>
+							    	<option	th:value=1>高</option>
+							    	<option	th:value=2>中</option>
+							    	<option	th:value=3>低</option>
+						    	</select>
+					    	</label>
+				    	</div>
+				    	
+		    			<div class="sidesearch-form">	
+							<label for="taskname">タスク名
+						    	<input type="search" name="taskname" th:field="*{taskName}">
+							</label>
+			   		    </div>
+			   		    
+			   		    <div class="sidesearch-form">
+				   		    <label>担当者名
+					   		    <input type="search" th:field="*{repName}">
+						    </label>
+					    </div>
 					    
-					    <label>検索期間</label><br>
+					    <label>検索期間</label>
+					    <div class="sidesearch-form">
+					    	<label>開始日:
+   						    	<input type="datetime-local" th:field="*{from}">
+							</label>
+							
+						  	<label>終了日:
+							    <input type="datetime-local" th:field="*{to}">
+						    </label>
+					    </div>
 					    
-					    <input type="datetime-local" th:field="*{from}"><br>
-					  
-					    <input type="datetime-local" th:field="*{to}"><br>
-					    
-			    	    <button>検索</button>
+					    <div class="sidesearch-form">
+			    	    	<button>検索</button>
+			    	    </div>
 		   	    	</form>
 	   	    	</div>
 			</details>
@@ -105,14 +118,13 @@
 	
 	    <!-- メインコンテンツ（タスク一覧） -->
 		<div class="main-content">
-			<h1 style="text-align:center">タスク一覧</h1>
 
-			 <div>
-				<span class="a-2 content-title">優先度</span>
-				<span class="b-2 content-title">タスク名</span>
-				<span class="c-2 content-title">期限</span>
-				<span class="d-2 content-title">担当</span>
-				<span class="e-2 content-title">状態</span>
+			 <div class="flex">
+				<span class="priority-title">優先度</span>
+				<span class="taskName-title">タスク名</span>
+				<span class="dueTime-title">期限</span>
+				<span class="repName-title">担当</span>
+				<span class="status-title">状態</span>
 			</div>
 			
 			<div class="taskList"></div>
@@ -133,7 +145,7 @@
 				</div>
 				<div id="modal-body">
 				<form>
-			    	<div class="updateform-radio">
+			    	<div class="modal-item">
 			  			<label class="title">優先度</label>
 					    
 					    <div  class="modal-td">
@@ -158,26 +170,32 @@
 						</select>
 					</div>
 
-					<div class="modal-item"><label class="title">状態</label>
-						<input class="modal-status" type="radio" id="radio1" name="modalstatus" value=1 disabled>
-						<label class="radio-button" for="radio1">未着手</label>
-						
-						<input class="modal-status" type="radio" id="radio2" name="modalstatus" value=2 disabled>
-						<label class="radio-button" for="radio2">進行中</label>
-						
-						<input class="modal-status" type="radio" id="radio3" name="modalstatus" value=3 disabled	>
-						<label class="radio-button" for="radio3">完了済</label>
+					<div class="modal-item">
+						<label class="title">状態</label>
+						<div class="modal-td">
+							
+							<input class="modal-status" type="radio" id="radio1" name="modalstatus" value=1 disabled>
+							<label class="radio-button" for="radio1">未着手</label>
+							
+							<input class="modal-status" type="radio" id="radio2" name="modalstatus" value=2 disabled>
+							<label class="radio-button" for="radio2">進行中</label>
+							
+							<input class="modal-status" type="radio" id="radio3" name="modalstatus" value=3 disabled	>
+							<label class="radio-button" for="radio3">完了済</label>
+						</div>
 					</div>
 				
 					<div id="btn-wrap">
 					    <button id="update-form" class="btn" type="button" onclick="updateForm()">編集</button>
 			    		<button id="execute-delete" class="btn" type="button" onclick="deleteData()">削除</button>
 					</div>
+					<br>
 				</form>
 				</div>
 			</div>
 		</div>
 	</div>
-	</div>
+</div>
+	
 </body>
 </html>

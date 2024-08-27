@@ -2,45 +2,44 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <title>TKT</title>
+    <title>新規ユーザ登録</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" th:href="@{/css/login.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/form.css}" type="text/css">
     
 </head>
 <body>
-	<div class="acountRegistform-wrapper">
 
-	    <h1>新規ユーザ登録ページ</h1>
-	    <div class="right">
-			<a href="/admin">アカウント管理トップに戻る</a>	<br><br>
-		</div>
-		<form name="userregistform" th:action="@{/admin/registExecute}" th:object="${user}" method="post">
+	<div class="acountRegisterform-wrapper">
+	    <p class="form-title">新規ユーザ登録</p>
+
+		<form name="userregistform" th:action="@{/registerExecute}" th:object="${user}" method="post">
 			<div class="form-item">
-				<label>ユーザ名
-					<input type="text" name="name" th:field=*{name} required="required">
+				<label>ユーザ名<span class="Form-Item-Label-Required">必須</span>
+					<input type="text" name="name" th:field=*{name} required="required" placeholder="例） 田中太郎">
 				</label>
 			</div>
 			<div class="form-item">
-				<label>e-mail
-					<input type="text" name="email" th:field=*{email} required="required">
+				<label>メールアドレス<span class="Form-Item-Label-Required">必須</span>
+					<input type="email" name="email" th:field=*{email} required="required" placeholder="例） tanaka@xxxx.xxx">
 				</label>
 			</div>
 			<div class="form-item">
-				<label>パスワード
-					<input type="text" name="password" th:field=*{password} required="required">
+				<label>パスワード<span class="Form-Item-Label-Required">必須</span>
+					<input type="password" name="password" th:field=*{password} required="required"placeholder="例） tanaka5555">
 				</label>
 			</div>
 			<div class="form-item">
-				<label>役職<br>
-					<input th:value=1 type="radio" name="roleId" th:text="メンバ" required="required"><br>
-					<input th:value=2 type="radio" name="roleId" th:text="リーダ" required="required">
-				</label>
+				<label>役職<span class="Form-Item-Label-Required">必須</span></label>
+					<label><input th:value=1 type="radio" name="roleId" required="required">メンバ</label>
+					<label><input th:value=2 type="radio" name="roleId" required="required">リーダ</label>
 			</div>
 			<div class="button-panel">
 				<input type="submit" class="button" title="regist" value="登録"></input>
 			</div>
 		</form>
-		
+		<div class="form-footer">
+			<p><a th:href="@{/login}">ログイン画面に戻る</a></p> 
+  		</div>
     </div>
 </body>
 </html>

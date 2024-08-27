@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>ユーザ情報</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/common.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/form.css}" type="text/css">
+    <script type="text/javascript" th:src="@{/js/acount.js}"></script>
+</head>
+<body>
+	<header>
+		<form th:action="@{/logout}" method="post">
+			<button type="submit">ログアウト</button>
+		</form>
+		<hr>
+	</header>
+	
+	<div class="acountDetailform-wrapper">
+  	    <p class="form-title">ユーザ情報</p>
+	
+		<form name="userEditform" th:object="${user}">
+			<input type="hidden" name="id" class="userEdit-text" th:value=*{id} disabled>
+		
+			<div class="form-item">
+				<label>ユーザ名
+					<input type="text" name="name" class="userEdit-text" th:value=*{name} disabled required="required">
+					
+				</label>
+			</div>
+			<div class="form-item">
+				<label>メールアドレス
+					<input type="email" name="email" class="userEdit-text" th:value=*{email} disabled required="required">
+				</label>
+
+			</div>
+			<input type="hidden" name="password" class="userEdit-text" th:value=*{password} disabled>
+
+			<div class="form-item">
+				<label>役職<br>
+					<input type="text" th:value="*{role.id == 1} ?  メンバ : リーダ" name="roleId" disabled>
+				</label>
+			</div>
+			<div id="userEditOnBtn-wrapper">
+				<input type="button"  title="editOn" value="編集" onclick="userEditOn()">
+			</div>
+			<div id="userEditBtn-wrapper">
+				<input type="button" class="userEdit-btn" title="edit" value="確定" onclick="userEditExecute()">
+				<input type="button" class="userEdit-btn" title="edit" value="キャンセル" onclick="userEditCancel()">
+			</div>
+	
+			<input type="hidden" name="roleid" class="userEdit-text" th:value=*{role.id} disabled>
+				
+		</form>
+
+		<div class="form-footer">
+			<p><a th:href="@{/myPage}">マイページに戻る</a></p> 
+  		</div>
+    </div>
+</body>
+</html>

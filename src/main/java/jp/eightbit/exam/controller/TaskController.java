@@ -1,30 +1,23 @@
 package jp.eightbit.exam.controller;
 
-import java.util.Collections;
-import java.util.Date;
+
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.text.SimpleDateFormat;
+
 import java.time.LocalDateTime;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jp.eightbit.exam.entity.Task;
 import jp.eightbit.exam.entity.TaskPriority;
-import jp.eightbit.exam.entity.TaskState;
 import jp.eightbit.exam.entity.User;
 import jp.eightbit.exam.model.TaskSearchQuery;
 import jp.eightbit.exam.service.ServiceUtility;
@@ -38,7 +31,6 @@ public class TaskController {
 	private final TaskService taskService;
 	private final UserService userService;
 
-	@Autowired
 	public TaskController(TaskService taskService,UserService userService) {
 		this.taskService = taskService;
 		this.userService = userService;
@@ -218,16 +210,16 @@ public class TaskController {
 		task.setStatus(taskService.taskStatusfindById(statusId));
 
 		taskService.taskDBUpdate(task);
-		
-		if(pathName.equals("/task")) {
+
+		if(pathName.equals("/taskMGR/task")) {
 			scenePath = "redirect:/task";
-		}else if(pathName.equals("/myTask")) {
+		}else if(pathName.equals("/taskMGR/myTask")) {
 			scenePath = "redirect:/myTask";			
-		}else if(pathName.equals("/taskUnassigned")) {
+		}else if(pathName.equals("/taskMGR/taskUnassigned")) {
 			scenePath = "redirect:/taskUnassigned";
-		}else if(pathName.equals("/taskSearch")) {
+		}else if(pathName.equals("/taskMGR/taskSearch")) {
 			scenePath = "redirect:/task";
-		}else if(pathName.equals("/myTaskSearch")) {
+		}else if(pathName.equals("/taskMGR/myTaskSearch")) {
 			scenePath = "redirect:/myTask";
 		}
 		

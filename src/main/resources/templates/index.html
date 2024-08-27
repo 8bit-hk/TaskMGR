@@ -2,48 +2,47 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <title>TKT</title>
+    <title>トップ</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/common.css}" type="text/css">
    	<link rel="stylesheet" th:href="@{/css/content.css}" type="text/css">
 </head>
 <body>
-
 	<header>
-	<br><br><br>
-
+		<form th:action="@{/logout}" method="post">
+			<button type="submit">ログアウト</button>
+		</form>
+		<hr>
+		<h1 style="text-align:center">本日が期限のタスク一覧</h1>
 	</header>
+
 	<nav class="gnavi__wrap">
 		<ul class="gnavi__lists">
-			<li class="gnavi__list"><a href="/top">トップ</a></li>
-			<li class="gnavi__list">
-				<a href="/task">タスク</a>
-				<ul class="dropdown__lists">
-					<li class="dropdown__list"><a href="/myTask">マイタスク</a></li>
-				</ul>
-			</li>	
-			<li class="gnavi__list"><a href="/member">メンバ</a></li>
-			
-			<li th:if="${loginUserRole == 2}" class="gnavi__list" ><a href="/admin">アカウント管理</a></li>
-			<li th:if="${loginUserRole == 1}" class="gnavi__list" ><a href="">管理権限なし</a></li>
-			
+			<li class="gnavi__list"><a th:href="@{/top}">トップ</a></li>
+			<li class="gnavi__list"><a th:href="@{/task}">タスク</a></li>	
+			<li class="gnavi__list"><a th:href="@{/member}">メンバ</a></li>
+			<li class="gnavi__list"><a th:href="@{/myPage}">マイページ</a></li>
 		</ul>
 	</nav>
-		<form class="right" th:action="@{/logout}" method="post">
-		<button type="submit">ログアウト</button>
-	</form>
 
-		<div class="top-wrap">
-			<h1 style="text-align:center">本日が期限のタスク一覧</h1>	
-			<div class="task-wrap">
-				<div class="toDays-tasks" th:each="tasks : ${taskList}">
-		    		<span class="a" th:text="${tasks.priority.name}"></span>
-		    		<span class="b" th:text="${tasks.name}"></span>
-		    		<span class="c" th:text="${#temporals.hour(tasks.dueTime)}+ 時 +${#temporals.minute(tasks.dueTime)} + 分"></span>
-		    		<span class="d" th:text="${tasks.user != null} ? ${tasks.user.name} : ' '"></span>
-		    		<span class="e" th:text="${tasks.status.name}"></span>		    		
-				</div>
+
+	<div class="top-wrap">
+		<div class="task-wrap">
+			<div class="flex">
+				<span class="priority-title">優先度</span>
+				<span class="taskName-title">タスク名</span>
+				<span class="dueTime-title">期限</span>
+				<span class="repName-title">担当</span>
+				<span class="status-title">状態</span>
 			</div>
-					</div>
+			<div class="toDays-tasks" th:each="tasks : ${taskList}">
+	    		<span class="priority" th:text="${tasks.priority.name}"></span>
+	    		<span class="taskName" th:text="${tasks.name}"></span>
+	    		<span class="dueTime" th:text="${#temporals.hour(tasks.dueTime)}+ 時 +${#temporals.minute(tasks.dueTime)} + 分"></span>
+	    		<span class="repName" th:text="${tasks.user != null} ? ${tasks.user.name} : ' '"></span>
+	    		<span class="status" th:text="${tasks.status.name}"></span>		    		
+			</div>
+		</div>
+	</div>
 </body>
 </html>

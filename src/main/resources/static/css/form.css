@@ -1,198 +1,228 @@
-.taskAddWrap{
-	width: 40%;
-	height: auto;
-	margin: 40px 30%;
-	padding: 20px;
-	border : 3px solid #333;	
+@charset "UTF-8";
+
+/*************** 背景色設定 ***************/
+body{
+	background-color: #E5F0F8;	
 }
-.task-regist{
-	text-align: center;
-	font-size: 25px;
-	border-bottom : 3px solid #333;	
-	margin-bottom: 10px;
-}
+/*************** ********* ***************/
 
-
-.form-text {
-    height: 2.4em;
-    width: 100%;
-    padding: 0 16px;
-    border-radius: 4px;
-    border: none;
-    box-shadow: 0 0 0 1px #ccc inset;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-}
-
-.form-text:focus {
-    outline: 0;
-    box-shadow: 0 0 0 2px rgb(33, 150, 243) inset;
-}
-.form-radio{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.form-radio input {
-    position: absolute;
-    white-space: nowrap;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    border: 0;
-    padding: 0;
-    clip: rect(0 0 0 0);
-    clip-path: inset(50%);
-    margin: -1px;
-}
-
-.form-radio-name {
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    color: #666;
-}
-
-.form-radio-name:before {
-    content: "";
-    display: inline-block;
-    width: 1.2em;
-    height: 1.2em;
-    border: 1px solid #ccc;
-    border-radius: 50%;
-    margin-right: 6px;
-    flex-shrink: 0;
-}
-
-.form-radio input:checked + .form-radio-name {
-    color: rgb(33, 150, 243);
-}
-
-.form-radio input:checked + .form-radio-name:before {
-    border: 0.35em solid rgb(33, 150, 243);
-}
-
-.form-radio input:focus-visible + .form-radio-name .form-radio-text {
-    background: linear-gradient(transparent 90%, rgba(33, 150, 243, 0.3) 90%);
-}
-
-.form-select {
-    position: relative;
-}
-
-.form-select:before {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-    right: 12px;
-    width: 8px;
-    height: 8px;
-    border-top: 2px solid #333;
-    border-right: 2px solid #333;
-    transform: rotate(135deg);
-    pointer-events: none;
-}
-
-.form-select select {
-    height: 2.4em;
-    width: 100%;
-    padding: 0 8px;
-    border-radius: 4px;
-    border: none;
-    box-shadow: 0 0 0 1px #ccc inset;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    cursor: pointer;
-}
-
-.form-select select::-ms-expand {
-    display: none;
-}
-
-.form-select select:focus {
-    outline: 0;
-    box-shadow: 0 0 0 2px rgb(33, 150, 243) inset;
-}
-
-.form-submit-button {
-    display: inline-block;
-    width: 100%;
-    padding: 8px;
-    margin-top: 15px;
-    border: none;
-    border-radius: 4px;
-    background-color: #333;
-    color: #fff;
-    font-weight: bold;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    cursor: pointer;
-    border: 2px solid transparent;
-}
-
-.form-submit-button:hover {
-    background-color: #000;
-}
-
-.form-submit-button:focus {
-    outline: 0;
-    background-color: #000;
-    border: 2px solid rgb(33, 150, 243);
-}
-
-
-
-.priorityBtn input{
+/*************** フォーム内必須マーク ***************/
+.Form-Item-Label-Required {
+	border-radius: 6px;
+	margin-left: 8px;
+	margin-bottom: 5px;
+	padding: 2px 0;
+	width: 40px;
 	display: inline-block;
-	width: 32%;
-    height: 2.4em;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
+	text-align: center;
+	background: #0f9fff;
+	color: #fff;
+	font-size: 12px;
 }
-.priorityBtn input:focus{
-	outline: 0;
-	box-shadow: 0 0 0 2px rgb(33, 150, 243) inset;
+/*************** *************** ***************/
+
+/*************** タスク追加フォーム設定 ***************/
+.taskRegisterform-wrapper{
+	max-width: 400px;
+    margin: 70px auto 0px auto;
+    padding: 30px;
+	background-color: #fff;
+	border-radius: 5px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+/*************** **************** ***************/
+
+/*************** 入力フォーム全般設定 ***************/
+.form-wrapper {
+  max-width: 400px;
+  margin: 13% auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.form-title{
+	text-align: center;
+	font-size: 30px;
+	border-bottom : 3px solid #0080c0;	
+	margin-top: 0px;
+}
+.form-wrapper a{
+	text-decoration: none;
+}
+.form-item {
+  margin-bottom: 15px;
+}
+.form-item select{
+	width: 95%;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+}
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
 }
 
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="datetime-local"] {
+  width: 90%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
 
-  /* ���W�I�{�^�����\���ɂ��� */
-  input[type="radio"] {
+input[type="submit"] {
+  width: 95%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.back-link{
+	margin-top: 15px;
+}
+
+/*************** ************** ***************/
+
+/*************** 新規ユーザ登録フォーム設定 ***************/
+.acountRegisterform-wrapper {
+	max-width: 400px;
+	margin: 70px auto 0px auto;
+	padding: 30px;
+	background-color: #fff;
+	border-radius: 5px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.acountRegisterform-wrapper a{
+	text-decoration: none;
+}
+/*************** ******************** ***************/
+
+/*************** マイページフォーム設定 ***************/
+.mypageform-wrapper {
+  max-width: 400px;
+  margin: 5% auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.mypageform-wrapper a {
+	text-decoration: none;
+}
+.mypageform-item{
+	width: 85%;
+	color: black;
+	display: block;
+  	font-weight: bold;
+    background: rgb(162, 201, 230);
+	line-height: 2;
+	cursor: pointer;
+	margin: 20px 3px;
+	padding: 10px 40px 10px 16px;
+}
+.mypageform-item:hover {
+    background-color: #0071BB;
+    color: #fff;
+}
+/*************** ********************************/
+
+/*************** ユーザ情報フォーム設定 ***************/
+.acountDetailform-wrapper {
+	max-width: 400px;
+	margin: 70px auto 0px auto;
+	padding: 30px;
+	background-color: #fff;
+	border-radius: 5px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.acountDetailform-wrapper .form-item input:disabled{
+	border: none;
+}
+.acountDetailform-wrapper a{
+	text-decoration: none;
+}
+#userEditOnBtn-wrapper 
+input[type="button"] {
+  width: 95%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-left: 2.5%;
+}
+#userEditBtn-wrapper{
     display: none;
-  }
-   /* �{�^�����̃X�^�C����K�p */
-  label.radio-button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #e0e0e0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  /* �I�����ꂽ���W�I�{�^���̃X�^�C����ύX */
-  input[type="radio"]:checked + label.radio-button {
-    background-color: #3498db;
-    color: #fff;
-    border-color: #3498db;
-  }
-  
-  label.priority-radio-button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #e0e0e0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-    input[type="radio"]:checked + label.priority-radio-button {
-    background-color: #3498db;
-    color: #fff;
-    border-color: #3498db;
-  }
+    justify-content:space-around;
+}
+#userEditBtn-wrapper 
+input[type="submit"],
+#userEditBtn-wrapper 
+input[type="button"] {
+  width: 45%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+/*************** ***************** ***************/
+
+/*************** ユーザ削除フォーム設定 ***************/
+.acountform-wrapper {
+	max-width: 400px;
+    margin: 70px auto 0px auto;
+    padding: 30px;
+	background-color: #fff;
+	border-radius: 5px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.acountform-wrapper a {
+	text-decoration: none;
+}
+.acountList{
+	margin: 5px 0;
+}
+/* ラジオボタンを非表示にする */
+.acountList input[type="radio"] {
+	display: none;
+}
+ /* ボタン風のスタイルを適用 */
+label.radio-button {
+	width:85%;
+	display: inline-block;
+	padding: 10px 20px;
+	background-color: #e0e0e0;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	cursor: pointer;
+}
+/* 選択されたラジオボタンのスタイルを変更 */
+input[type="radio"]:checked + label.radio-button {
+	background-color: #3498db;
+	color: #fff;
+	border-color: #3498db;
+}
+#delete-btn {
+	width:95%;
+	padding: 10px 0;
+	margin-top: 10px;
+}
+/*************** ***************** ***************/
+
+
+/*************** タスク追加フォーム設定 ***************/
+.taskRegisterform-wrapper a{
+	text-decoration: none;	
+}
+/*************** ***************** ***************/

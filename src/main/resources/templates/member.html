@@ -2,9 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <title>TKT</title>
+    <title>メンバ一覧</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/common.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/paging.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/side.css}" type="text/css">
 	<link rel="stylesheet" th:href="@{/css/member.css}" type="text/css">
     <script type="text/javascript" th:src="@{/js/member.js}"></script>
     <script th:inline="javascript">
@@ -13,69 +15,60 @@
 	</script>
 </head>
 <body>
-	<div class="form-wrapper">
-	<br><br><br>
-
+	<header>
+		<form th:action="@{/logout}" method="post">
+			<button type="submit">ログアウト</button>
+		</form>
+		<hr>
+		<h1 style="text-align:center">メンバ一覧</h1>
+	</header>
+	
 	<nav class="gnavi__wrap">
 		<ul class="gnavi__lists">
-			<li class="gnavi__list"><a href="/top">トップ</a></li>
-			<li class="gnavi__list">
-				<a href="/task">タスク</a>
-				<ul class="dropdown__lists">
-					<li class="dropdown__list"><a href="/myTask">マイタスク</a></li>
-				</ul>
-			</li>	
-			<li class="gnavi__list"><a href="/member">メンバ</a></li>
-		
-			<li th:if="${loginUserRole == 2}" class="gnavi__list" ><a href="/admin">アカウント管理</a></li>
-			<li th:if="${loginUserRole == 1}" class="gnavi__list" ><a href="">管理権限なし</a></li>
+			<li class="gnavi__list"><a th:href="@{/top}">トップ</a></li>
+			<li class="gnavi__list"><a th:href="@{/task}">タスク</a></li>	
+			<li class="gnavi__list"><a th:href="@{/member}">メンバ</a></li>
+			<li class="gnavi__list"><a th:href="@{/myPage}">マイページ</a></li>
 		</ul>
 	</nav>
-			<form class="right" th:action="@{/logout}" method="post">
-		<button type="submit">ログアウト</button>
-	</form>
-	
-	<!-- サイドバーに検索機能を表示する（役職/名前） -->
 
-	
-   
-	<p class="member-title">メンバ一覧</p>
-	
 	<div class="member-wrap">
-	
-		<div class="main-content">
-		 <!-- 以下メンバ一覧表示用（役職/名前/未着手/進行中/完了済タスク数を表示する） -->
-     	<div class="right search">
-   		<div class="search-block">
-	   		<form th:action="@{/memberSearch}" th:object="${searchQuery}" method="get">
-	   			<label><input class="is-job" type="checkbox" value="2" checked=”checked” onclick="jobCheck()">リーダ</label>
-	   			<label><input class="is-job" type="checkbox" value="1" checked=”checked” onclick="jobCheck()">メンバ</label>
-				<input type="search" th:field=*{name} placeholder="名前">
-				<button>検索</button>
-	 		</form>
-	   	</div>
-	</div>
-			<div class="userList content-title">
-				<span class="job-title">役職</span>
-				<span class="name-title">名前</span>
-				<span class="notStarted-title">未着手</span>
-				<span class="inProgress-title">進行中</span>
-				<span class="completed-title">完了済</span>
-			</div>
-			
-			<div class="userList"></div>
+		
+		<div class="flex">
+			<!-- サイドバー -->
+		    <nav class="side-wrap">
+			   	<div class="side-lists-member">
+			   	<label>表示切替</label><br>
+		   			<label><input class="is-job" type="checkbox" value="2" checked=”checked” onclick="jobCheck()">リーダ</label><br>
+		   			<label><input class="is-job" type="checkbox" value="1" checked=”checked” onclick="jobCheck()">メンバ</label>
+		   		</div>
+				<div class="side-lists-member">
+			   		<form th:action="@{/memberSearch}" th:object="${searchQuery}" method="get">
+			   		    <label>名前検索<input type="search" th:field=*{name}></label>
+			   		    <button>検索</button>
+			 		</form>
+	  		    </div>
+		    </nav>
+		
+			<div class="main-content">
+			 <!-- 以下メンバ一覧表示用（役職/名前/未着手/進行中/完了済タスク数を表示する） -->
+				<div class="content-title">
+					<span class="job-title">役職</span>
+					<span class="name-title">名前</span>
+					<span class="notStarted-title">未着手</span>
+					<span class="inProgress-title">進行中</span>
+					<span class="completed-title">完了済</span>
+				</div>
+				
+				<div class="userList"></div>
+				
 				<div id="pagination">
 					<button id="prev">&lt;</button>
 			   		<div id="paginateButton"></div>
 			   		<button id="next">&gt;</button>
-				</div>
-				
+				</div>			
+			</div>
 		</div>
 	</div>
-	
-
-
-
-    </div>
 </body>
 </html>

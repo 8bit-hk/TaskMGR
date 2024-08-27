@@ -1,32 +1,26 @@
-/**
- * モーダルウィンドウ用
- */
 let modalTask;
-let isSelect = false;
+let isSelect;
 let count = 0;
+
 function selectOpen(){
 	isSelect=true;
 	const selectExcept = document.getElementsByClassName("form-wrapper");
 	
 	selectExcept[0].addEventListener('click',function(){
 		isSelect = false;
-		console.log(isSelect)
 	})
-	console.log(isSelect)
 }
-function selectClose(){
-	console.log(isSelect);
-}
+
 function modalOpen(t){
-	console.log(isSelect)
+
 	const modal = document.getElementById('easyModal');
 	const tasks = document.getElementsByClassName("task");
 	const modalText = document.getElementsByClassName("modalText")
 	const modalPriority = document.getElementsByClassName("modal-priority");
 	const modalStatus = document.getElementsByClassName("modal-status");
-	
 	const optionUsers =document.getElementsByClassName("option-user");
 	let  Task = t[0];
+	
 	for(let i = 0; i< tasks.length; i++){
 		tasks[i].addEventListener('click',function(){
 			Task = t[i];
@@ -60,8 +54,7 @@ function modalOpen(t){
 			}else{
 				optionUsers[0].selected = true;	
 			}
-			
-			
+
 			// 状態
 			switch(Task.status.id){
 				case 1:
@@ -75,6 +68,7 @@ function modalOpen(t){
 					break;					
 			}
 			
+			// 未割当てタスクのプルダウンリストをクリックしていた場合モーダルを表示しない
 			if(!isSelect){
 				modal.style.display = 'block';					
 			}
@@ -83,7 +77,6 @@ function modalOpen(t){
 			}
 			modalTask = Task;
 		},false);
-		
 	}
 	
 	const modalclose = document.getElementById('easyModal');
@@ -116,11 +109,13 @@ function updateForm(){
 	}
 	const selectedUser = document.querySelector('select[name="userId"]');
 	selectedUser.disabled = false;
+	
 	const modalDaleteBtn = document.getElementById("execute-delete");
 	modalDaleteBtn.textContent = "キャンセル";
-	modalDaleteBtn.setAttribute('onclick','modalClose()');
+	modalDaleteBtn.setAttribute('onclick','UpdateCancel()');
 	const modalUpdateBtn = document.getElementById("update-form");
 	
+	modalUpdateBtn.textContent = "確定";
 	modalUpdateBtn.setAttribute('onclick','updateExecute()');
 	
 	const modalclose = document.getElementById('easyModal');
@@ -130,8 +125,32 @@ function updateForm(){
 			modalClose();
 		}
 	})
+}
 
-
+function UpdateCancel(){
+	const modaltext = document.getElementsByClassName("modalText");
+	const modalpriority = document.getElementsByClassName("modal-priority");
+	const modalStatus = document.getElementsByClassName("modal-status");
+	for(let i = 0; i < modaltext.length; i++){
+		modaltext[i].disabled = true;
+	}
+	for(let i = 0; i < modalpriority.length; i++){
+			modalpriority[i].disabled = true;	
+	}
+	for(let i = 0; i < modalStatus.length; i++){
+			modalStatus[i].disabled = true;	
+	}
+	const selectedUser = document.querySelector('select[name="userId"]');
+	selectedUser.disabled = true;
+	
+	const modalDaleteBtn = document.getElementById("execute-delete");
+	const modalUpdateBtn = document.getElementById("update-form");
+	
+	modalDaleteBtn.textContent = "削除";
+	modalDaleteBtn.setAttribute('onclick','deleteData()');
+	
+	modalUpdateBtn.textContent = "編集";
+	modalUpdateBtn.setAttribute('onclick','updateForm()');
 }
 
 // モーダルが閉じるときの処理
@@ -176,14 +195,14 @@ function updateExecute(){
 
 	// DB更新
 	taskDBUpdate(updateTask.id,prioritySelectedRadio.value,modalText[0].value,
-		modalText[1].value,selectedUser.value,statusSelectedRadio.value,location.pathname);
+					modalText[1].value,selectedUser.value,statusSelectedRadio.value,location.pathname);
 }
 
 // 編集ボタンを押されたタイミングでDBを更新するPostをなげる
 async function taskDBUpdate(UPtaskId,UPpriorityId,UPtaskName,UPdueTime,UPrepId,UPstatusID,pathName){
  	
-
-	const url = "http://localhost:8080/task/updateDB";
+	console.log(pathName)
+	const url = "http://localhost:8080/taskMGR/task/updateDB";
 	const form = new FormData();
 	form.append('taskId', UPtaskId);
 	form.append('priorityId', UPpriorityId);
@@ -218,14 +237,13 @@ async function taskDBUpdate(UPtaskId,UPpriorityId,UPtaskName,UPdueTime,UPrepId,U
 
 // 削除ボタンが押された時
 function deleteData(){
-
 	taskDBdelete(modalTask.id);
-	
 }
+
 // タスク詳細モーダルから削除ボタンを押された際の処理
 async function taskDBdelete(taskId){
  
-	const url = "http://localhost:8080/task/deleteDB";
+	const url = "http://localhost:8080/taskMGR/task/deleteDB";
 	const form = new FormData();
 	form.append('taskId', taskId);
 	const params = {
@@ -244,5 +262,11 @@ async function taskDBdelete(taskId){
 		alert("更新処理中に問題が発生しました");
 	}
 	window.location.assign(res.url);
+}
 
+function getCsrfToken(){
+	// jsからfetchでリクエストを送る場合はcsrfトークンを手動で持ってくる必要がある
+	var csrfElm = document.querySelector('input[name="_csrf"]');
+	var csrf_token = csrfElm.value;
+	return csrf_token;
 }

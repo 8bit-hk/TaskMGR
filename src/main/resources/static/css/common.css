@@ -1,15 +1,25 @@
+@charset "UTF-8";
+
+/*************** èƒŒæ™¯è‰²è¨­å®š ***************/
+body {
+	background-color: #E5F0F8;	
+}
+/*************** ********* ***************/
+
+
+/*************** æ±ç”¨è¨­å®š ***************/
 .flex{
 	display: flex;
 }
-
 .inline-block{
 	display: inline-block;
 }
-
 .right {
     text-align: right; 
 }
+/*************** ******* ***************/
 
+/*************** ã‚°ãƒ­ãƒ¼ãƒãƒ«ãƒŠãƒ“ã‚²ãƒ¼ã‚·ãƒ§ãƒ³è¨­å®š ***************/
 .gnavi__wrap {
     width: 100%;
     margin: 0 auto;
@@ -22,7 +32,7 @@
 .gnavi__list {
     width: 25%;
     height: 60px;
-    background-color: #E5F0F8;
+    background-color: rgb(162, 201, 230);
     position: relative;
     transition: all .3s;
 }
@@ -58,85 +68,4 @@
 .gnavi__list:hover a {
     color: #fff;
 }
-.dropdown__lists {
-    display: none;/*ƒfƒtƒHƒ‹ƒg‚Å‚Í”ñ•\¦‚Ìó‘Ô‚É‚µ‚Ä‚¨‚­*/
-    width: 100%;
-    position: absolute;
-    top: 60px;
-    left: 0;
-    list-style: none;
-    padding-left:0;
-}
-.gnavi__list:hover .dropdown__lists {
-    display: block;/*Gƒiƒrƒƒjƒ…[‚Éƒzƒo[‚µ‚½‚ç•\¦*/
-}
-.dropdown__list {
-    background-color: #004d80;
-    height: 60px;
-    transition: all .3s;
-    position: relative;
-}
-.dropdown__list:not(:first-child)::before{
-    content: "";
-    width: 100%;
-    height: 1px;
-    background-color: #3492d1;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-.dropdown__list:hover {
-    background-color: #003558;
-}
-.dropdown__list a {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-    text-decoration: none;
-    position: relative;
-}
-.dropdown__list a::before {
-    content: '';
-    display: block;
-    width: 6px;
-    height: 6px;
-    border-top: 2px solid #fff;
-    border-left: 2px solid #fff;
-    transform: rotate(135deg);
-    position: absolute;
-    right: 15px;
-    top: calc(50% - 5px);
-}
-
-/** ƒy[ƒWƒ“ƒO **/
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-.active {
-  background-color: #2185c7;
-  color: #fff;
-  border: none;
-}
-.main-content #pagination {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin: 30px 0px;
-}
-.main-content #pagination button {
-  border: none;
-  padding: 15px 0;
-  cursor: pointer;
-  min-width: 40px;
-  text-align: center;
-  border-radius: 5px;
-}
-.main-content #pagination #paginateButton {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
+/*************** ******************** ***************/

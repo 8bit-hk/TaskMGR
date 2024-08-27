@@ -1,28 +1,28 @@
-/* ƒgƒbƒvƒy[ƒW‚Ìƒ^ƒXƒN—“ */
+@charset "UTF-8";
+
+/*************** ãƒˆãƒƒãƒ—ãƒšãƒ¼ã‚¸ã®ã‚¿ã‚¹ã‚¯æ¬„è¨­å®š ***************/
 .top-wrap{
-	width: 70%;
+	width: 80%;
 	height: auto;
-	margin: 50px 15% 0px 15%; 
+	margin: 50px 10% 0px 10%; 
 }
 .task-wrap{
-	width: 90%;
-	height: auto;
-	margin:10px 5% 0 5%;
-
-	
-}
-.toDays-tasks{
 	width: 100%;
 	height: auto;
-	padding: 10px 0;
-	border-bottom: 1px solid #0000a0;
-
 }
+.toDays-tasks{
+	display:flex;
+	width: 100%;
+    background-color: #ffffff;
+	border-radius: 25px;
+	margin: 10px 0;
+	
+	height: auto;
+	border: 1px solid #0000a0;
+}
+/*************** ****************** ***************/
 
-
-
-
-/* ƒ^ƒXƒN‚ÌƒRƒ“ƒeƒ“ƒc—“ */
+/*************** ã‚¿ã‚¹ã‚¯ãƒšãƒ¼ã‚¸ã®ã‚³ãƒ³ãƒ†ãƒ³ãƒ„è¨­å®š ***************/
 .main-content{
 	padding: 10px 50px 0 50px;
 	display: inline-block;
@@ -33,19 +33,23 @@
 
 .task{
 	width: 100%;
-    background-color: #E5F0F8;
+    background-color: #ffffff;
 	border-radius: 25px;
 	margin: 10px 0;
+	border: 1px solid #0000a0;
+	display:flex;	
 }
 .task:hover{
 	cursor: pointer;
+	color: white;
+   background-color: #0071BB;
 }
-.content-title{
-	font-size: 16px;
-	font-weight: bold;
-}
+
 .transButton{
-		width: 5%;
+	margin-top: 12px;
+	width: 5%;
+	height:30px;
+	border-radius: 15px;
 }
 .updateButtonDiv{
 	text-align: right;
@@ -55,139 +59,79 @@
 	height: 30px;	
 }
 
-.a{
-	display: inline-block;
+.priority{
+	display: block;
 	text-align: center;
-	width: 8%;		
-	height: 54px;
+	width: 8%;	
 	padding: 15px 0;
 }
-.a-2{
-	display: inline-block;
-	text-align: center;
-	width: 8%;
-	font-size: 22px;
-}
-.b{
-	display: inline-block;	
+.taskName{
+	display: block;	
 	text-align: left;
 	width: 40%;	
-	height: 54px;
 	padding: 15px 0;
 }
-.b-2{
-	display: inline-block;	
+.dueTime{
+	display: block;
 	text-align: center;
-	width: 40%;	
-	padding: 0px 10px;
-	font-size: 22px;
-}
-
-.c{
-	display: inline-block;
-	text-align: center;
-	width: 23%;	
-	height: 54px;
+	width: 25%;	
 	padding: 15px 0;
 }
-.c-2{
-	display: inline-block;
-	text-align: center;
-	width: 23%;
-	font-size: 22px;
-}
-.d{
-	display: inline-block;
+.repName{
+	display: block;
 	text-align: center;
 	width: 14%;	
-	height: 54px;
 	padding: 15px 0;
 }
-.d-2{
-	display: inline-block;
-	text-align: center;
-	width: 10%;
-	
-	font-size: 22px;
-}
-
-.e{
-	display: inline-block;
+.status{
+	display: block;
 	text-align: center;
 	width: 7%;
-	height: 54px;
 	padding: 15px 0;
 }
-.e-2{
-	display: inline-block;
+
+.priority-title{
+	display: block;
+	width: 8%;
 	text-align: center;
-	width: 7%;
+	font-weight: bold;
 	font-size: 22px;
-	padding-left: 10px;
 }
-
-
+.taskName-title{
+	display: block;	
+	width: 40%;
+	text-align: center;
+	font-weight: bold;
+	font-size: 22px;
+}
+.dueTime-title{
+	display: block;
+	width: 25%;
+	text-align: center;
+	font-weight: bold;
+	font-size: 22px;
+}
+.repName-title{
+	display: block;
+	width: 14%;
+	text-align: center;
+	font-weight: bold;
+	font-size: 22px;
+}
+.status-title{
+	display: block;
+	width: 7%;
+	text-align: center;
+	font-weight: bold;	
+	font-size: 22px;
+}
 
 .repAssigned{
+	display: block;
 	width: 10%;
-	margin: 0 15px;
-	z-index: 999;
+	margin: 15px 2%;
 }
+/*************** ******************** ***************/
 
 
-
-.details {
-  color: #287E39;
-  line-height: 2;
-  border: 1px solid #B9F9B2;
-  width: 100%;;
-}
-
-.details__summary {
-    position: relative;
-    display: block;
-    background: #F3FFF3;
-    cursor: pointer;
-    margin: 0;
-    padding: 10px 40px 10px 16px;
-}
-.details__summary::-webkit-details-marker {
-      display: none;
- }
- 
- .details__summary::before {
-      display: block;
-      content: "";
-      box-sizing: border-box;
-      position: absolute;
-      top: calc(50% - 6px);
-      right: 16px;
-      width: 6px;
-      height: 6px;
-      border: 6px solid transparent;
-      border-left: 6px solid #287E39;
-      transition: all 0.4s ease-out;
-      transform-origin: 3px 6px;
-      transform: rotate(90deg);
-      .details[open] & {
-        transform: rotate(-90deg);
-      }
-}
-
-.details__content {
-    overflow: hidden;
-    margin: 0;
-    padding-left: 16px;
-    padding-right: 16px;
-    > * {
-      margin: 0;
-      padding-top: 16px;
-	}
-}
-
-.details__content:last-child {
- 	padding-bottom: 16px;
- }
-
-  
 

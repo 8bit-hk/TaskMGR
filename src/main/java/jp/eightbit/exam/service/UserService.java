@@ -54,6 +54,14 @@ public class UserService {
 	}
 	
 	/**
+	 * ユーザ情報更新
+	 */
+	public void userUpdate(User user,int roleId) {
+		user.setRole(roleRepo.findById((long) roleId).get());		
+
+		userRepo.save(user);
+	}
+	/**
 	 * 既存ユーザ削除
 	 */
 	public void userDelete(int userId) {

@@ -29,15 +29,19 @@ public class SecurityConfig {
 		).authorizeHttpRequests(ahr -> ahr			// URLごとの認可設定記述開始
 				.requestMatchers(PathRequest.toStaticResources().atCommonLocations())
 					.permitAll()					// "/css/**"などはログインなしでもアクセス可能
-				.requestMatchers("/")
-					.permitAll()					// "/"はログインなしでもアクセス可能
+				.requestMatchers("/register")
+					.permitAll()					// アカウント登録はログインなしでもアクセス可能
+				.requestMatchers("/registerExecute")
+				.permitAll()						// 新規アカウントをDBに追加用
 				.requestMatchers("/general")
 					.hasRole("GENERAL")				// "/general"はROLE_GENERALのみアクセス可能（一般ユーザ）
-				.requestMatchers("/admin")
+				.requestMatchers("/user/delete")
+					.hasRole("ADMIN")				// "/admin"ははROLE_ADMINのみアクセス可能（管理者ユーザ）
+				.requestMatchers("/user/deleteExecute")
 					.hasRole("ADMIN")				// "/admin"ははROLE_ADMINのみアクセス可能（管理者ユーザ）
 				.anyRequest().authenticated());		// 他のURLはログイン後のみアクセス可能
 //		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-//		System.out.println(encoder.encode("user"));
+//		System.out.println(encoder.encode("admin"));
 
 		return http.build();
 	}

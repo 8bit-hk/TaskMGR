@@ -1,22 +1,189 @@
+@charset "UTF-8";
 
-/** �T�C�h�o�[�֌W **/
+/*************** サイドバー全般設定 ***************/
 .side-wrap {
     width: 17%;
-    min-width: 202px;
-    padding: 75px 0px 0 0;
+    min-width: 202px;	
+    background: rgb(162, 201, 230);
+    margin-top: 20px;
 }
 .side-wrap a{
 	text-decoration: none;
 }
 .side-lists {
-	width:100%;
     display: block;
-	color: #287E39;
-    background: #F3FFF3;
-  	border: 1px solid #B9F9B2;
+    text-decoration: none;
+    color: #1b4059;
+    font-size: 15px;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+ 	border-bottom: 1px solid #0000a0;
   	line-height: 2;	
     cursor: pointer;
+    position: relative;
     margin: 0;
     padding: 10px 40px 10px 16px;
 
 }
+.side-lists:hover{
+	background: #0071BB;
+	color: white;
+}
+
+.details {
+text-decoration: none;
+    color: #1b4059;
+    font-size: 15px;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+    
+	line-height: 2;
+	width: 100%;
+	border-bottom: 1px solid #0000a0;	  
+}
+
+.details__summary {
+    position: relative;
+    display: block;
+    cursor: pointer;
+    margin: 0;
+    padding: 10px 40px 10px 16px;
+}
+.details__summary:hover{
+	background: #0071BB;
+		
+	color: white;
+}
+.details__summary::-webkit-details-marker {
+      display: none;
+ }
+ 
+ .details__summary::before {
+	display: block;
+	content: "";
+	box-sizing: border-box;
+	position: absolute;
+	top: calc(50% - 6px);
+	right: 16px;
+	width: 6px;
+	height: 6px;
+	border: 6px solid transparent;
+	border-left: 6px solid #1b4059;
+	transition: all 0.4s ease-out;
+	transform-origin: 3px 6px;
+	transform: rotate(90deg);
+	.details[open] & {
+	  transform: rotate(-90deg);
+	}
+}
+
+.details__content {
+    overflow: hidden;
+    margin: 0;
+    padding-left: 16px;
+    padding-right: 16px;
+    > * {
+      margin: 0;
+      padding-top: 16px;
+	}
+}
+
+.details__content input:hover{
+	cursor: pointer;
+}
+
+.label-text:hover{
+	cursor: pointer;
+}	
+.details__content label{
+	margin:0;
+}
+.details__content:last-child {
+ 	padding-bottom: 16px;
+ }
+/*************** ************** ***************/
+
+
+/*************** タスクページのサイドバー用設定 ***************/
+.sidesearch-form{
+
+	margin-bottom: 10px;
+}
+
+.sidesearch-form label {
+  display: block;
+}
+ .sidesearch-form select{
+	width: 100%;
+	padding: 5px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+}
+
+.sidesearch-form 
+input[type="search"] {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+	cursor: initial;
+}
+.sidesearch-form 
+input[type="datetime-local"] {
+  width: 94%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  	cursor: initial;
+}
+
+.sidesearch-form button {
+  width: 100%;
+  padding: 5px;
+  margin-top: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+/*************** メンバページのサイドバー用設定 ***************/
+.side-lists-member {
+    display: block;
+    text-decoration: none;
+    color: #1b4059;
+    font-size: 15px;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+ 	border-bottom: 1px solid #0000a0;
+  	line-height: 2;	
+    position: relative;
+    margin: 0;
+    padding: 10px 20px 10px 20px;
+
+}
+.side-lists-member label,
+input[type="checkbox"] {
+	cursor: pointer;
+}
+
+.side-lists-member 
+input[type="search"] {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.side-lists-member button {
+  width: 100%;
+  padding: 5px;
+  margin-top: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+/*************** ********************** ***************/

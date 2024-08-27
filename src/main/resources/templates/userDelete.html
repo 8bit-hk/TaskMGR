@@ -2,28 +2,32 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <title>TKT</title>
+    <title>ユーザ削除</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" th:href="@{/css/acount.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/common.css}" type="text/css">    
+    <link rel="stylesheet" th:href="@{/css/form.css}" type="text/css">    
     <script type="text/javascript" th:src="@{/js/acount.js}"></script>
 </head>
 <body>
-	<div class="form-wrapper">
-	<form class="right" th:action="@{/logout}" method="post">
-		
-	</form>
-	    <h1>アカウント削除</h1>
-	    <div class="right">
-	    		<a href="/admin">アカウント管理トップに戻る</a>
-	    </div>
-	   	<form>  	   	
-	    <div class="acountList" th:each="users : ${userList}">
-			<input class="delete-user" type="radio" th:id="*{users.id}" name="userId" th:value="*{users.id}">
-			<label class="radio-button" th:for="*{users.id}" th:text="*{users.name}"></label>
-	   	</div>
-	   	
+	<header>
+		<form th:action="@{/logout}" method="post">
+			<button type="submit">ログアウト</button>
+		</form>
+		<hr>
+	</header>
 
-	   	<button type="button"id="delete-btn" onclick="deleteBtnClick()">削除</button>
+	<div class="acountform-wrapper">	
+	<p class="form-title">ユーザ削除</p>
+	   	<form name="userDeleteform">
+	    	<div class="acountList" th:each="users : ${userList}">
+				<input class="delete-user" type="radio" th:id="*{users.id}" name="userId" th:value="*{users.id}">
+				<label class="radio-button" th:for="*{users.id}" th:text="*{users.name}"></label>
+	   		</div>
+		   		<button type="button"id="delete-btn" onclick="deleteBtnClick()">削除</button>
+
+			<div class="form-footer">
+				<p><a th:href="@{/myPage}">マイページに戻る</a></p> 
+	  		</div>
 	   	</form>
     </div>
 </body>

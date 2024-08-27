@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>マイページ</title>
+    <meta charset="UTF-8">
+  	<link rel="stylesheet" th:href="@{/css/common.css}" type="text/css">
+   	<link rel="stylesheet" th:href="@{/css/form.css}" type="text/css">
+</head>
+<body>
+	<header>
+		<form th:action="@{/logout}" method="post">
+			<button type="submit">ログアウト</button>
+		</form>
+		<hr>
+		<h1 style="text-align:center">マイページ</h1>		
+	</header>
+		<!-- グローバルナビゲーション -->
+	<nav class="gnavi__wrap">
+		<ul class="gnavi__lists">
+			<li class="gnavi__list"><a th:href="@{/top}">トップ</a></li>
+			<li class="gnavi__list"><a th:href="@{/task}">タスク</a></li>	
+			<li class="gnavi__list"><a th:href="@{/member}">メンバ</a></li>
+			<li class="gnavi__list"><a th:href="@{/myPage}">マイページ</a></li>
+		</ul>
+	</nav>	
+	
+	<div class="mypageform-wrapper">
+	
+		<a th:href="@{/myTask}">
+			<div class="mypageform-item">マイタスク</div>	
+		</a>
+		<a th:href="@{/userDetail}">
+			<div class="mypageform-item">ユーザ情報</div>
+		</a>
+		<th:block th:if="${loginUserRole == 2}" >
+		<a th:href="@{/user/delete}">
+			<div class="mypageform-item">ユーザ管理</div>
+		</a>
+		</th:block>
+   	    
+		
+    </div>
+</body>
+</html>

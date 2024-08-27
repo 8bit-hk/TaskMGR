@@ -2,83 +2,59 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <title>BMS</title>
+    <title>新規タスク追加</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/common.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/css/form.css}" type="text/css">
 </head>
-<body>
-	<div class="form-wrapper">
+<body>    
+	<header>
+		<form th:action="@{/logout}" method="post">
+			<button type="submit">ログアウト</button>
+		</form>
+		<hr>
+	</header>
 
-   	<br><br><br>
-
-	<nav class="gnavi__wrap">
-		<ul class="gnavi__lists">
-			<li class="gnavi__list"><a href="/top">トップ</a></li>
-			<li class="gnavi__list">
-				<a href="/task">タスク</a>
-				<ul class="dropdown__lists">
-					<li class="dropdown__list"><a href="/myTask">マイタスク</a></li>
-				</ul>
-			</li>	
-			<li class="gnavi__list"><a href="/member">メンバ</a></li>
-			
-			<li th:if="${loginUserRole == 2}" class="gnavi__list" ><a href="/admin">アカウント管理</a></li>
-			<li th:if="${loginUserRole == 1}" class="gnavi__list" ><a href="">管理権限なし</a></li>
-
-		</ul>
-	</nav>
-	
-    </div>
-		<form class="right" th:action="@{/logout}" method="post">
-		<button type="submit">ログアウト</button>
-	</form>
-
-    
-    <div class="taskAddWrap">
-	<p class="task-regist">新規タスク追加</p>	    
-	    <form name="taskregistform" th:action="@{/task/registExecute}" th:object="${taskEntity}" method="post">
-		    <label>優先度</label><br>
-		    <div class="form-radio">
-		    	<label>
-			    	<input type="radio" name="priority" th:value=1>
-			    	<span class="form-radio-name">
-        	    		<span class="form-radio-text">高</span>
-        			</span>
-        		</label>
-		    	<label>
-		    		<input type="radio" name="priority" th:value="2">
-			    	<span class="form-radio-name">
-	        	    	<span class="form-radio-text">中</span>
-	        		</span>
-        		</label>
-		    	<label>
-		    		<input type="radio" name="priority" th:value="3">
-		    		<span class="form-radio-name">
-            			<span class="form-radio-text">低</span>
-        			</span>
-        		</label>
-
+    <div class="taskRegisterform-wrapper">
+	<p class="form-title">新規タスク追加</p>
+		<form name="taskregistform" th:action="@{/task/registExecute}" th:object="${taskEntity}" method="post">
+		    <div class="form-item">
+			    <label>優先度<span class="Form-Item-Label-Required">必須</span></label>
+			    <label><input type="radio" name="priority" th:value=1 required="required">高</label>	
+   			    <label><input type="radio" name="priority" th:value=2 required="required">中</label>	
+   			    <label><input type="radio" name="priority" th:value=3 required="required">低</label>	
 		    </div>
-		    	
-		    <label>タスク名</label><br>
-		    <input type="text" name="" value="" class="form-text" th:field="*{name}"/><br>
+		    		    
+			<div class="form-item">
+		    	<label>タスク名<span class="Form-Item-Label-Required">必須</span>
+		    		<input type="text" name="name" th:field="*{name}" required="required"/><br>
+		    	</label>
+		    </div>
+		    
+			<div class="form-item">		    
+		    	<label>期限<span class="Form-Item-Label-Required">必須</span>
+			    	<input type="datetime-local" name="duetime" th:field="*{dueTime}"required="required"><br>
+			    </label>
+		    </div>
+		    
 
-		    <label>期限</label><br>
-		    <input type="datetime-local"class="form-text" th:field="*{dueTime}"><br>
-		    
-		    
-		    <label>担当者</label><br>
-		    <div class="form-select">
-		    	<select name="userId">
-	   		    	<option th:value=0></option>
-					<option th:each="user : ${userList}" th:value="${user.id}" th:inline="text">[[${user.name}]]</option>
-				</select>
+		    <div class="form-item">
+		    	<label>担当者
+		    		<select name="userId">
+	   		    		<option th:value=0></option>
+						<option th:each="user : ${userList}" th:value="${user.id}" th:inline="text">[[${user.name}]]</option>
+					</select>
+				</label>
 			</div>
 			
-			<button class="form-submit-button">登録</button>
+			<div class="button-panel">
+				<input type="submit" class="button" title="regist" value="登録"></input>
+			</div>
 	    </form>
-    
+   	    <div class="back-link">
+	   		<a th:href="@{/task}">タスク一覧に戻る</a>
+   	    </div>
+	   	
     </div>
     
     

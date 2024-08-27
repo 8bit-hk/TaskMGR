@@ -1,0 +1,29 @@
+@charset "UTF-8";
+
+/*************** ページング設定 ***************/
+.active {
+  background-color: #2185c7;
+  color: #fff;
+  border: none;
+}
+.main-content #pagination {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 30px 0px;
+}
+.main-content #pagination button {
+  	border: 1px solid #0000a0;
+  padding: 15px 0;
+  cursor: pointer;
+  min-width: 40px;
+  text-align: center;
+  border-radius: 5px;
+}
+.main-content #pagination #paginateButton {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+/*************** *********** ***************/
+

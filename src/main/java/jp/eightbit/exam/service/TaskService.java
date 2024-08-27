@@ -7,9 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import jp.eightbit.exam.entity.Task;
 import jp.eightbit.exam.entity.TaskPriority;
@@ -20,7 +18,6 @@ import jp.eightbit.exam.repository.TaskPriorityRepository;
 import jp.eightbit.exam.repository.TaskRepository;
 import jp.eightbit.exam.repository.TaskStateRepository;
 import jp.eightbit.exam.repository.UserRepository;
-import org.springframework.data.domain.Pageable;
 
 @Service
 public class TaskService {
@@ -69,7 +66,7 @@ public class TaskService {
 	 * @return
 	 */
 	public List<Task> findAll(){
-		return taskRepo.findAll();
+		return taskRepo.findAllByOrderByIdDesc();
 	}
 	
 	
@@ -177,71 +174,172 @@ public class TaskService {
 		if(priorityNum == 0 && taskName.isBlank() && repName.isBlank() && from == null && to == null) {
 			// 何も入力されていない時は全表示
 			taskList = taskRepo.findAll();
+			
 		}else if(taskName.isBlank() && repName.isBlank() && from == null && to == null) {
 			//優先度のみ
 			taskList = taskRepo.findByPriorityId(priorityNum);
+			
 		}else if(repName.isBlank() && from == null && to == null && priorityNum == 0) {
 			// タスク名のみ
 			taskList = taskRepo.findByNameContaining(taskName);
+			
 		}else if(taskName.isBlank() && from == null && to == null && priorityNum == 0) {
 			// 担当者名のみ
 			for(User u : userList) {
 				List<Task> userTaskList = taskRepo.findByUserId(u.getId());
 				taskList.addAll(userTaskList);
 			}
+			
+		}else if(taskName.isBlank() && repName.isBlank() && priorityNum == 0 && to == null) {
+			// 日付（開始のみ）
+			taskList = taskRepo.findByDueTimeAfter(from);
+			
+		}else if(taskName.isBlank() && repName.isBlank() && priorityNum == 0 && from == null) {
+			// 日付（終了日のみ）
+			taskList = taskRepo.findByDueTimeBefore(to);
+			
 		}else if(taskName.isBlank() && repName.isBlank() && priorityNum == 0) {
-			// 日付のみの検索
+			// 日付（両方）検索
 			taskList = taskRepo.findBydueTimeBetween(from, to);
+			
 		}else if(repName.isBlank() && from == null && to == null) {
 			// 優先度とタスク名
 			taskList = taskRepo.findByPriorityIdAndNameContaining(priorityNum, taskName);
+			
 		}else if(taskName.isBlank() && from == null && to == null) {
 			// 優先度と担当者名
 			for(User u : userList) {
 				List<Task> userTaskList = taskRepo.findByPriorityIdAndUserId(priorityNum, u.getId());
 				taskList.addAll(userTaskList);
 			}
+			
+		}else if(taskName.isBlank() && repName.isBlank() && to == null) {
+			// 優先度と日付（開始日のみ）
+			taskList = taskRepo.findByDueTimeAfterAndPriorityId(from,priorityNum);
+			
+		}else if(taskName.isBlank() && repName.isBlank() && from == null) {
+			// 優先度と日付（終了日のみ）
+			taskList = taskRepo.findByDueTimeBeforeAndPriorityId(to,priorityNum);
+			
 		}else if(taskName.isBlank() && repName.isBlank()) {
-			// 優先度と日付
+			// 優先度と日付（両方）
 			taskList = taskRepo.findByPriorityIdAndDueTimeBetween(priorityNum, from, to);
+			
 		}else if(priorityNum == 0 && from == null && to == null) {
 			// タスク名と担当者名
 			for(User u : userList) {
 				List<Task> userTaskList = taskRepo.findByNameContainingAndUserId(taskName, u.getId());
 				taskList.addAll(userTaskList);
 			}
+			
+		}else if(priorityNum == 0 && repName.isBlank() && to == null) {
+			// タスク名と日付（開始日のみ）
+			taskList = taskRepo.findByDueTimeAfterAndNameContaining(from, taskName);
+			
+		}else if(priorityNum == 0 && repName.isBlank() && from == null) {
+			// タスク名と日付（終了日のみ）
+			taskList = taskRepo.findByDueTimeBeforeAndNameContaining(to,taskName);
+			
 		}else if(priorityNum == 0 && repName.isBlank()) {
-			// タスク名と日付
+			// タスク名と日付（両方）
 			taskList = taskRepo.findByNameContainingAndDueTimeBetween(taskName, from, to);
+			
+		}else if(priorityNum == 0 && taskName.isBlank() && to == null) {
+			// 担当者名と日付（開始日のみ）
+			for(User u : userList) {
+				List<Task> userTaskList = taskRepo.findByDueTimeAfterAndUserId(from,u.getId());
+				taskList.addAll(userTaskList);
+			} 
+			
+		}else if(priorityNum == 0 && taskName.isBlank() && from == null) {
+			// 担当者名と日付（終了日のみ）
+			for(User u : userList) {
+				List<Task> userTaskList = taskRepo.findByDueTimeBeforeAndUserId(to,u.getId());
+				taskList.addAll(userTaskList);
+			}
+			
 		}else if(priorityNum == 0 && taskName.isBlank()) {
-			// 担当者名と日付
+			// 担当者名と日付（両方）
 			for(User u : userList) {
 				List<Task> userTaskList = taskRepo.findByUserIdAndDueTimeBetween(u.getId(), from, to);
 				taskList.addAll(userTaskList);
-			} 
+			}
+			
 		}else if(from == null && to == null) {
 			// 優先度とタスク名と担当者名
 			for(User u : userList) {
 				List<Task> userTaskList = taskRepo.findByPriorityIdAndNameContainingAndUserId(priorityNum, taskName, u.getId());
 				taskList.addAll(userTaskList);
 			}
+			
+		}else if(repName.isBlank() && to == null) {
+			// 優先度とタスク名と日付（開始日のみ）
+			taskList = taskRepo.findByDueTimeAfterAndPriorityIdAndNameContaining(from,priorityNum, taskName);
+
+		}else if(repName.isBlank() && from == null) {
+			// 優先度とタスク名と日付（終了日のみ）
+			taskList = taskRepo.findByDueTimeBeforeAndPriorityIdAndNameContaining(to,priorityNum, taskName);
+
 		}else if(repName.isBlank()) {
-			// 優先度とタスク名と日付
+			// 優先度とタスク名と日付（両方）
 			taskList = taskRepo.findByPriorityIdAndNameContainingAndDueTimeBetween(priorityNum, taskName , from, to);
+			
+		}else if(taskName.isBlank() && to == null) {
+			// 優先度と担当者名と日付（開始日のみ）
+			for(User u : userList) {
+				List<Task> userTaskList = taskRepo.findByDueTimeAfterAndPriorityIdAndUserId(from,priorityNum, u.getId());
+				taskList.addAll(userTaskList);
+			}
+			
+		}else if(taskName.isBlank() && from == null) {
+			// 優先度と担当者名と日付（終了日のみ）
+			for(User u : userList) {
+				List<Task> userTaskList = taskRepo.findByDueTimeBeforeAndPriorityIdAndUserId(to,priorityNum, u.getId());
+				taskList.addAll(userTaskList);
+			}
+			
 		}else if(taskName.isBlank()) {
-			// 優先度と担当者名と日付
+			// 優先度と担当者名と日付（両方）
 			for(User u : userList) {
 				List<Task> userTaskList = taskRepo.findByPriorityIdAndUserIdAndDueTimeBetween(priorityNum, u.getId(), from, to);
 				taskList.addAll(userTaskList);
 			}
+			
+		}else if(priorityNum == 0 && to == null) {
+			// タスク名と担当者名と日付（開始日のみ）
+			for(User u : userList) {
+				List<Task> userTaskList = taskRepo.findByDueTimeAfterAndNameContainingAndUserId(from,taskName, u.getId());
+				taskList.addAll(userTaskList);
+			}
+			
+		}else if(priorityNum == 0 && from == null) {
+			// タスク名と担当者名と日付（終了日のみ）
+			for(User u : userList) {
+				List<Task> userTaskList = taskRepo.findByDueTimeBeforeAndNameContainingAndUserId(to,taskName, u.getId());
+				taskList.addAll(userTaskList);
+			}
+			
 		}else if(priorityNum == 0) {
-			// タスク名と担当者名と日付
+			// タスク名と担当者名と日付（両方）
 			for(User u : userList) {
 				List<Task> userTaskList = taskRepo.findByNameContainingAndUserIdAndDueTimeBetween(taskName, u.getId(), from, to);
 				taskList.addAll(userTaskList);
 			}
+			
+		}else if(to == null){
+			// 全部（優先度とタスク名と担当者名と日付（開始日のみ）
+			for(User u : userList) {
+				List<Task> userTaskList = taskRepo.findByDueTimeAfterAndPriorityIdAndNameContainingAndUserId(from,priorityNum, taskName, u.getId());
+				taskList.addAll(userTaskList);
+			}
+		}else if(from == null){
+			// 全部（優先度とタスク名と担当者名と日付（開始日のみ）
+			for(User u : userList) {
+				List<Task> userTaskList = taskRepo.findByDueTimeBeforeAndPriorityIdAndNameContainingAndUserId(to,priorityNum, taskName, u.getId());
+				taskList.addAll(userTaskList);
+			}
 		}else {
-			// 全部（優先度とタスク名と担当者名と日付
+			// 全部（優先度とタスク名と担当者名と日付（両方）
 			for(User u : userList) {
 				List<Task> userTaskList = taskRepo.findByPriorityIdAndNameContainingAndUserIdAndDueTimeBetween(priorityNum, taskName, u.getId(), from, to);
 				taskList.addAll(userTaskList);
@@ -265,7 +363,6 @@ public class TaskService {
 	}
 	
 	public void taskDBUpdate(Task task) {
-		
 		taskRepo.save(task);
 	}
 	public void taskDBdelete(int taskId) {	
