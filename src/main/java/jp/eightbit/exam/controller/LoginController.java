@@ -75,7 +75,7 @@ public class LoginController {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		user.setPassword(encoder.encode(user.getPassword()));
 		userService.userRegist(user,roleId);
-		return "/login";
+		return "redirect:/login";
 	}
 	
 	/**

@@ -135,6 +135,9 @@ function userListView(uL,tL){
 		const totalPages = Math.ceil(data.length / itemsPerPage);
 	  	const paginateButton = document.getElementById("paginateButton");
 		paginateButton.innerHTML=""
+		if(totalPages == 1){
+			next.disabled = true;
+		}
 		for (let i = 1; i <= totalPages; i++) {
 			const pageButton = document.createElement("button");
 	    	pageButton.textContent = i;

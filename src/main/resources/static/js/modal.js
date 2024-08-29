@@ -177,6 +177,7 @@ function modalClose() {
 	const modalUpdateBtn = document.getElementById("update-form");
 	const modalDaleteBtn = document.getElementById("execute-delete");
 
+	modalUpdateBtn.textContent = "編集";
 	modalUpdateBtn.setAttribute('onclick','updateForm()');
 	modalDaleteBtn.textContent = "削除";
 	modalDaleteBtn.setAttribute('onclick','deleteData()');
