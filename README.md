@@ -24,8 +24,7 @@ TaskMGRは、各メンバのタスクを共有することで、チーム全体�
 
 |新規アカウント作成機能|ユーザ編集・削除機能|
 |---|---|
-|![UserRegister-Validation](https://github.com/user-attachments/assets/01595b89-4415-450e-a7e7-d82d0c661d11)|![User-Edit-Delete](https://github.com/user-attachments/assets/100f2ab1-ae26-40bc-91e6-f580b913eb6f)|
-
+|![UserRegister-Validation](https://github.com/user-attachments/assets/b0e14dbb-74cd-4d6e-aa12-8fc571b55ce4)|![User-Edit-Delete](https://github.com/user-attachments/assets/860c4b51-0672-4580-80c5-3bc0a239bdc6)
 * **新規アカウント作成機能**
     * ログイン画面の「新規アカウント作成」から、各必須項目入力後「登録」をクリックすることでアカウント登録を行えます。
     * バリデーション機能によって、未入力の必須項目がある場合、正しい値が入力されていない場合はアカウントの登録が行えません。
@@ -36,7 +35,7 @@ TaskMGRは、各メンバのタスクを共有することで、チーム全体�
  
 |ログイン・ログアウト機能|メンバ役職別表示切替・名前検索機能|
 |---|---|
-|![Login-Logout-Validation](https://github.com/user-attachments/assets/081b4ed6-6e2f-4e3d-8ba7-4475b41d8be0)|![Member-JobDisplay-Search](https://github.com/user-attachments/assets/489822ee-cfda-483a-9968-a904516e4f52)|
+![Login-Logout-Validation](https://github.com/user-attachments/assets/db04e958-e32b-4b1f-9d87-f4ad75022242)|![Member-JobDisplay-Search](https://github.com/user-attachments/assets/ab47d55c-df94-4f8e-91f2-ab6f44709232)|
 * **ログイン・ログアウト機能**
    * アカウント登録済みのユーザは「Email」と「Password」を入力し、「ログイン」をクリックすることでログインできます。
    * バリデーション機能によって、未入力の項目やアカウント登録されていない「Email/Password」ではログインできません。
@@ -46,7 +45,7 @@ TaskMGRは、各メンバのタスクを共有することで、チーム全体�
 
 |新規タスク追加機能|タスク編集・削除機能|
 |---|---|
-|![TaskRegister-Validation](https://github.com/user-attachments/assets/e32189d1-f9be-4680-86d9-b44e90b1eeb8)|![TaskEdit-Delete](https://github.com/user-attachments/assets/1c773b2d-473b-477b-90a4-16c3799a6b5f)|
+|![TaskRegister-Validation](https://github.com/user-attachments/assets/9e682082-f4b2-4912-bfc1-f93d2b5401d9)|![TaskEdit-Delete](https://github.com/user-attachments/assets/8cc2710e-84dc-4242-955c-16417d645e58)
 * **新規タスク追加機能**
    * タスク一覧画面「新規タスク追加」から、各必須項目入力後「追加」をクリックすることでタスクの追加が行えます。
    * バリデーション機能によって、未入力の必須項目がある場合、正しい値が入力されていない場合はタスクの追加が行えません。
@@ -57,7 +56,7 @@ TaskMGRは、各メンバのタスクを共有することで、チーム全体�
 
 |タスク状態別表示切替機能|担当者割り当て機能|
 |---|---|
-|![TaskStatus-Display](https://github.com/user-attachments/assets/4aa7cb2e-24b3-423d-87ff-777d0801d5c0)|![Task-Assign](https://github.com/user-attachments/assets/f8bedf2b-f2d8-46af-8d0c-7a2cff6cb9a2)|
+|![TaskStatus-Display](https://github.com/user-attachments/assets/fa9ac5c9-cdb4-4f5a-b613-58a5d72d3f5d)|![Task-Assign](https://github.com/user-attachments/assets/10753882-a682-460f-864f-1e10eb2158cc)|
 * **タスク状態別表示機能**
    * タスク一覧画面「状態別表示」をクリックするとチェックボックスが表示され、表示したい状態のチェックボックスにチェックをつけることで該当状態タスクが表示されます。
 * **担当者割り当て機能**
@@ -66,7 +65,7 @@ TaskMGRは、各メンバのタスクを共有することで、チーム全体�
 
 |タスク検索機能|ページネーション機能|
 |---|---|
-|![Task-Search](https://github.com/user-attachments/assets/d215161b-f022-4258-a9e4-02f428e1926a)|![Pagenation](https://github.com/user-attachments/assets/2238b67a-348a-436a-a0b7-6d9c60410151)|
+|![Task-Search](https://github.com/user-attachments/assets/6f07e40c-f177-44a6-ad29-b115dd1ed4c5)|![Pagenation](https://github.com/user-attachments/assets/3ef5b437-839f-4c15-adaf-004b99443718)|
 * **タスク検索機能**
    * タスク一覧画面「検索」をクリックすると各項目の入力欄が表示されます。検索したい値・文字列を各項目に入力し「検索」をクリックすることで該当タスクが表示されます。
 * **ページネーション機能**
