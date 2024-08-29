@@ -6,20 +6,6 @@ TaskMGRは、各メンバのタスクを共有することで、チーム全体�
 
 <br>
 
-## 使用技術
-<img src="https://img.shields.io/badge/-HTML5-2f2f2f.svg?logo=html5&style=flat"> <img src="https://img.shields.io/badge/-CSS3-2f2f2f.svg?logo=css3&style=flat"> <img src="https://img.shields.io/badge/JavaScript-2f2f2f.svg?logo=javascript&style=flat"> <img src="https://img.shields.io/badge/Java-2f2f2f.svg?logo=Java&style=flat">
-<br>
-<img src="https://img.shields.io/badge/MySQL-2f2f2f.svg?logo=mysql&style=flat">
-<br>
-<img src="https://img.shields.io/badge/Spring Boot-2f2f2f.svg?logo=springboot&style=flat">
-<img src="https://img.shields.io/badge/Spring Security-2f2f2f.svg?logo=springsecurity&style=flat">
-<br>
-<img src="https://img.shields.io/badge/Thymeleaf-2f2f2f.svg?logo=thymeleaf&style=flat">
-<img src="https://img.shields.io/badge/Gradle-2f2f2f.svg?logo=gradle&style=flat">
-<img src="https://img.shields.io/badge/Eclipse IDE-2f2f2f.svg?logo=eclipseide&style=flat">
-
-<br>
-
 ## 機能一覧
 
 |新規アカウント作成機能|ユーザ編集・削除機能|
@@ -71,6 +57,20 @@ TaskMGRは、各メンバのタスクを共有することで、チーム全体�
 * **ページネーション機能**
    * 表示するタスクが「10個」、ユーザが「5個」を超える場合、ページネーション機能によって次のページに表示されるようになっています。
    * 表示しているページが、「最前」または「最後」の場合、「＜」または「＞」をクリックできないようになっています。
+
+<br>
+
+## 使用技術
+<img src="https://img.shields.io/badge/-HTML5-2f2f2f.svg?logo=html5&style=flat"> <img src="https://img.shields.io/badge/-CSS3-2f2f2f.svg?logo=css3&style=flat"> <img src="https://img.shields.io/badge/JavaScript-2f2f2f.svg?logo=javascript&style=flat"> <img src="https://img.shields.io/badge/Java-2f2f2f.svg?logo=Java&style=flat">
+<br>
+<img src="https://img.shields.io/badge/MySQL-2f2f2f.svg?logo=mysql&style=flat">
+<br>
+<img src="https://img.shields.io/badge/Spring Boot-2f2f2f.svg?logo=springboot&style=flat">
+<img src="https://img.shields.io/badge/Spring Security-2f2f2f.svg?logo=springsecurity&style=flat">
+<br>
+<img src="https://img.shields.io/badge/Thymeleaf-2f2f2f.svg?logo=thymeleaf&style=flat">
+<img src="https://img.shields.io/badge/Gradle-2f2f2f.svg?logo=gradle&style=flat">
+<img src="https://img.shields.io/badge/Eclipse IDE-2f2f2f.svg?logo=eclipseide&style=flat">
 
 <br>
 
